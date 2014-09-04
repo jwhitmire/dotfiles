@@ -1,0 +1,30 @@
+--color
+
+--ignore-dir=is:.bundle
+--ignore-dir=is:.idea
+--ignore-dir=is:log
+--ignore-dir=is:tmp
+--ignore-dir=is:coverage
+
+--ignore-file=is:TAGS
+--ignore-file=is:tags
+--ignore-file=is:projectile.cache
+--ignore-file=ext:eld
+--ignore-file=ext:elc
+--ignore-file=is:archive-contents
+
+# make sure ack knows how to search common filetypes used in rails projects
+--type-add=css=scss
+--type-add=ruby:ext:haml,feature,lock
+--type-set=coffeescript:ext:coffee
+--type-set=coffee:ext:coffee
+--type-set=gemspec:ext:gemspec
+
+# make sure ack knows how to search common filetypes used in node.js projects
+--ignore-dir=node_modules
+--type-set=coffee:ext:coffee
+--type-set=jade:ext:jade
+--type-set=feature:ext:feature
+--type-set=json:ext:json
+
+--type-set=elisp:ext:el

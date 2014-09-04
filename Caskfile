@@ -1,0 +1,58 @@
+# the essential utilities
+cask install alfred
+cask install dropbox
+cask install xquartz
+cask install onepassword
+
+# development related stuff
+cask install grabbox
+cask install heroku-toolbelt
+cask install kaleidoscope
+cask install iterm2
+cask install tower
+cask install screenhero
+cask install zterm
+cask install spectacle
+cask install balsamiq-mockups
+
+# communication
+cask install colloquy
+cask install slack
+cask install skype
+
+# network/security stuff
+cask install gpgtools
+cask install cloak
+cask install wireshark
+
+# database
+cask install mysqlworkbench
+cask install postgres
+
+# browsers
+cask install firefox
+cask install google-chrome
+
+# VM management stuff
+cask install vagrant
+cask install vagrant-manager
+cask install virtualbox
+cask install vmware-fusion
+
+# scanner software
+cask install vuescan
+
+# video related stuff
+cask install handbrake
+cask install vlc
+
+# keyboard related
+cask install keycue
+cask install master-key
+
+# adjust brightness based on time of day
+cask install flux
+
+# good backup client
+cask install superduper
+

@@ -1,0 +1,18 @@
+#!/bin/bash
+
+if [ "$(ls -A ~/work/vm/triage)" ]
+then
+    umount ~/work/vm/triage
+    echo "triage.vm has been unmounted"
+else
+    echo "triage.vm is not mounted"
+fi
+
+if [ "$(ls -A ~/work/vm/surge)" ]
+then
+    umount ~/work/vm/surge
+    echo "surge.vm has been unmounted"
+else
+    echo "surge.vm is not mounted"
+fi
+

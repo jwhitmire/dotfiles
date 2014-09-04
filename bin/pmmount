@@ -1,0 +1,30 @@
+#!/bin/bash
+
+triage_count=$( ping -c 1 triage.vm | grep icmp* | wc -l )
+if [ $triage_count -eq 0 ]
+then
+   echo "triage.vm is down"
+else
+    if [ "$(ls -A ~/work/vm/triage)" ]
+    then
+        echo "triage.vm already mounted"
+    else
+        Sshfs triage.vm:/srv/appliance/local ~/work/vm/triage -o volname=triage.vm
+        echo "triage.vm mounted"
+    fi
+fi
+
+surge_count=$( ping -c 1 surge.vm | grep icmp* | wc -l )
+if [ $surge_count -eq 0 ]
+then
+   echo "surge.vm is down"
+else
+    if [ "$(ls -A ~/work/vm/surge)" ]
+    then
+        echo "surge.vm already mounted"
+    else
+        sshfs surge.vm:/srv/appliance/local ~/work/vm/surge -o volname=surge.vm
+        echo "surge.vm mounted"
+    fi
+fi
+
