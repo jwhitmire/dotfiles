@@ -109,6 +109,16 @@
 (load custom-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; auto-complete
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+
+(setq ac-ignore-case nil)
+(add-to-list 'ac-modes 'enh-ruby-mode)
+(add-to-list 'ac-modes 'web-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flyspell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq flyspell-issue-message-flg nil)
@@ -120,16 +130,6 @@
 
 ;; flyspell breaks auto-complete without this
 (ac-flyspell-workaround)
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; auto-complete
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(ac-config-default)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
-
-(setq ac-ignore-case nil)
-(add-to-list 'ac-modes 'enh-ruby-mode)
-(add-to-list 'ac-modes 'web-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm setup
@@ -226,11 +226,12 @@
 (eval-after-load 'magit
   (progn '(global-set-key (kbd "M-C-g") 'magit-status)))
 
-(add-hook 'magit-status-mode-hook 'magit-filenotify-mode)
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ruby mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(chruby "ruby-2.1.2")
 
 (add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
@@ -279,6 +280,10 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
+
+(add-hook 'enh-ruby-mode 'ruby-tools-mode)
+(add-hook 'enh-ruby-mode 'ruby-refactor-mode-launch)
+(add-hook 'enh-ruby-mode 'turn-on-ruby-dev)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; web-mode
