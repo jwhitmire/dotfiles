@@ -109,6 +109,16 @@
 (load custom-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; auto-complete
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(ac-config-default)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
+
+(setq ac-ignore-case nil)
+(add-to-list 'ac-modes 'enh-ruby-mode)
+(add-to-list 'ac-modes 'web-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helm setup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'helm-config)
@@ -119,6 +129,7 @@
 (require 'helm-themes)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
+(global-set-key (kbd "C-:") 'ac-complete-with-helm)
 
 (define-key helm-map (kbd "<tab>") 'helm-execute-persistent-action)
 (define-key helm-map (kbd "C-i") 'helm-execute-persistent-action)
@@ -127,8 +138,10 @@
 (define-key helm-grep-mode-map (kbd "<return") 'helm-grep-mode-jump-other-window)
 (define-key helm-grep-mode-map (kbd "n") 'helm-grep-mode-jump-other-window-forward)
 (define-key helm-grep-mode-map (kbd "p") 'helm-grep-mode-jump-other-window-backward)
-(define-key isearch-mode-map (kbd "s-i") 'helm-css-scss-from-isearch)
+
 (define-key helm-css-scss-map (kbd "s-i") 'helm-css-scss-multi-from-helm-css-scss)
+(define-key isearch-mode-map (kbd "s-i") 'helm-css-scss-from-isearch)
+(define-key ac-complete-mode-map (kbd "C-:") 'ac-complete-with-helm)
 
 (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 (add-hook 'eshell-mode-hook
@@ -183,15 +196,18 @@
 
 (setq ag-highlight-search t)
 
+(add-hook 'projectile-mode-hook 'projectile-rails-on)
+(setq projectile-rails-expand-snippet nil)
+
 (require 'grizzl)
-;;(projectile-global-mode)
-;;(setq projectile-enable-caching t
-      ;;projectile-completion-system 'grizzl)
+(projectile-global-mode)
+(setq projectile-enable-caching t
+      projectile-completion-system 'grizzl)
 
 ;; Cmd-p for finding in project
-;;(global-set-key (kbd "s-p") 'projectile-find-file)
+(global-set-key (kbd "s-p") 'projectile-find-file)
 ;; Cmd-b for fuzzy switch buffer
-;;(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
+(global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
 ;; Git mode
 (eval-after-load 'magit

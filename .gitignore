@@ -68,6 +68,7 @@ work
 .zcompdump*
 .zsh-update
 .zsh_history
+ac-comphist.dat
 
 .cask
 helm-adaptive-history
