@@ -1,32 +1,15 @@
+# -*- mode: gitignore; -*-
 #
 # global gitignore
 #
 
+################################################################################
+# OSX specific files
+################################################################################
 .CFUserTextEncoding
 .DS_Store
 .XAuthority
 .Trash
-
-*.swp
-*.tmproj
-\#*
-.\#*
-*~
-
-.bash_history
-.berkshelf
-.cache
-.cups
-.dropbox
-.rake_tasks
-.ruby-version
-.rubies
-.zeus.sock
-.backup
-.bundle
-.apdisk
-.vuescanrc
-._.*
 
 # OSX Home directory stuff
 Applications
@@ -40,6 +23,90 @@ Music
 Pictures
 Public
 
+# OSX app-specific files
+.dropbox
+.vuescanrc
+.config
+
+################################################################################
+# Emacs specific files
+################################################################################
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+ac-comphist.dat
+auto-save-list
+helm-adaptive-history
+places
+projectile-bookmarks.eld
+projectile.cache
+recentf
+savehist
+tramp
+.\#*
+
+.cask
+
+# Org-mode
+.org-id-locations
+*_archive
+
+# flymake-mode
+*_flymake.*
+
+# eshell files
+/eshell/history
+/eshell/lastdir
+
+# elpa packages
+/elpa/
+
+# reftex files
+*.rel
+
+# AUCTeX auto folder
+/auto/
+
+################################################################################
+# ruby related files
+################################################################################
+.bundle
+.gem
+.irb_history
+.rake_tasks
+.ruby-version
+.rubies
+.thor
+.zeus.sock
+
+################################################################################
+# zsh related files
+################################################################################
+.oh-my-zsh
+.zcompdump*
+.zsh-update
+.zsh_history
+
+################################################################################
+# vim related files
+################################################################################
+*.swp
+*.tmproj
+.vim
+.viminfo
+
+################################################################################
+#
+################################################################################
+.bash_history
+.berkshelf
+.cache
+.cups
+.backup
+.apdisk
+._.*
 
 dev
 etc
@@ -53,28 +120,10 @@ work
 *.log
 .lesshst
 .local
-.vim
-.viminfo
-.oh-my-zsh
 
-.gem
-.irb_history
-.thor
 .npm
 .ovftool.ssldb
 .subversion
 .sqlite_history
 .rnd
-.zcompdump*
-.zsh-update
-.zsh_history
-ac-comphist.dat
-
-.cask
-helm-adaptive-history
-places
-projectile-bookmarks.eld
-projectile.cache
-recentf
-savehist
 
