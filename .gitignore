@@ -131,3 +131,15 @@ work
 .sqlite_history
 .rnd
 
+# branch specific stuff
+.passenger
+.pgpass
+.spamassassin
+.bash*
+chef-solo
+triage_backups
+triage_uploads
+install.sh
+yara-2.1.0
+archive
+
