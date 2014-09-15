@@ -340,7 +340,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (load-theme 'calmer-forest t)
 
 ;; https://www.mozilla.org/en-US/styleguide/products/firefox-os/typeface/#download-primary
-(set-frame-font "Fira Mono OT-14" nil t)
+(set-frame-font "Fira Mono OT-12" nil t)
 
 ; enable syntax highlighting for dash functions
 (eval-after-load "dash" '(dash-enable-font-lock))
@@ -365,3 +365,13 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (sml/setup)
 (sml/apply-theme 'dark)
+
+(add-to-list 'sml/replacer-regexp-list '("^~/work/vm/triage" ":Triage:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/work/vm/" ":VM:") t)
+
+(require 'octicons)
+(make-face 'octicons-mode-line)
+(set-face-attribute 'octicons-mode-line nil
+                    :inherit 'mode-line
+                    :inherit 'octicons)
+

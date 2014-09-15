@@ -27,6 +27,10 @@ Public
 .dropbox
 .vuescanrc
 .config
+.fontconfig
+.inkscape-etc
+.jbapps-*
+.mono
 
 ################################################################################
 # Emacs specific files
