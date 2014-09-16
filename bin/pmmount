@@ -15,24 +15,10 @@ else
 
     if [ "$(ls -A ~/work/vm/mothership)" ]
     then
-        echo "triage.vm already mounted"
+        echo "mothership.vm already mounted"
     else
         Sshfs triage.vm:/srv/mothership/local ~/work/vm/mothership -o volname=mothership.vm
         echo "mothership.vm mounted"
     fi
 fi
-
-#surge_count=$( ping -c 1 surge.vm | grep icmp* | wc -l )
-#if [ $surge_count -eq 0 ]
-#then
-   #echo "surge.vm is down"
-#else
-    #if [ "$(ls -A ~/work/vm/surge)" ]
-    #then
-        #echo "surge.vm already mounted"
-    #else
-        #sshfs surge.vm:/srv/appliance/local ~/work/vm/surge -o volname=surge.vm
-        #echo "surge.vm mounted"
-    #fi
-#fi
 
