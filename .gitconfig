@@ -16,36 +16,48 @@
 	cp = cherry-pick
 	current-branch = !git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'
 	d = diff
-	dic = diff --cached
+	dc = diff --cached
+  div = divergence
 	ds = diff --staged
-	goggles = !git-goggles
+  fa = fetch --all
+  ff = merge --ff-only
+  gn = goodness
+  gnc = goodness --cached
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
-	h = help
+	h = !git head
+  head = !git l -1
+  hp = "!show_git_head"
 	ignored = !git ls-files -v | grep "^[[:lower:]]"
-	lignore = update-index --assume-unchanged
-	unlignore = update-index --no-assume-unchanged
 	irb = rebase --interactive
 	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+  la = !git l --all
+	latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)'
 	lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	lignore = update-index --assume-unchanged
 	lol = log --pretty=oneline --abbrev-commit --graph --decorate
 	m = merge
-	mm = merge --no-ff
+	noff = merge --no-ff
+  merged = branch --merged
 	out = log origin..HEAD
 	pl = pull
 	plre = pull --rebase
 	ps = push
 	qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
+  r = !git l -30
+  ra = !git r --all
 	rb = rebase
+  s = !git fetch && git status
 	sm = submodule
+  snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+  ss = local-to-remote-status
 	st = "!echo ; echo working as `git config user.name` ; echo ; git status -sb"
 	staged = diff --cached
 	track = !git-track
-	undo = reset --soft HEAD^
+	unadd = reset --soft HEAD^
+	unlignore = update-index --no-assume-unchanged
 	unstaged = diff
 	wd = diff --color-words
 	wds = diff --color-words --staged
-	latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)'
-	ctags = !.git/hooks/ctags
 [apply]
 	whitespace = nowarn
 [color]
@@ -75,7 +87,7 @@
 	autocrlf = false
 	safecrlf = true
 	quotepath = false
-    editor = vim
+  editor = vim
 [mirror]
 	summary = true
 [push]
