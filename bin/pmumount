@@ -8,11 +8,11 @@ else
     echo "triage.vm is not mounted"
 fi
 
-if [ "$(ls -A ~/work/vm/surge)" ]
+if [ "$(ls -A ~/work/vm/mothership)" ]
 then
-    umount ~/work/vm/surge
-    echo "surge.vm has been unmounted"
+    umount ~/work/vm/mothership
+    echo "mothership has been unmounted"
 else
-    echo "surge.vm is not mounted"
+    echo "mothership is not mounted"
 fi
 

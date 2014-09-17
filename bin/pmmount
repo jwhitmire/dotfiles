@@ -9,7 +9,7 @@ else
     then
         echo "triage.vm already mounted"
     else
-        Sshfs triage.vm:/srv/appliance/local ~/work/vm/triage -o volname=triage.vm
+        sshfs triage.vm:/srv/appliance/local ~/work/vm/triage -o volname=triage.vm
         echo "triage.vm mounted"
     fi
 
@@ -17,7 +17,7 @@ else
     then
         echo "mothership.vm already mounted"
     else
-        Sshfs triage.vm:/srv/mothership/local ~/work/vm/mothership -o volname=mothership.vm
+        sshfs triage.vm:/srv/mothership/local ~/work/vm/mothership -o volname=mothership.vm
         echo "mothership.vm mounted"
     fi
 fi
