@@ -510,7 +510,10 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (sml/apply-theme 'dark)
 
 (add-to-list 'sml/replacer-regexp-list '("^~/work/vm/triage" ":Triage:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/work/vm/mothership" ":MS:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/work/vm/" ":VM:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/projects/armstrong/armstrong" ":ARM:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/projects" ":PROJ:") t)
 
 (require 'octicons)
 (make-face 'octicons-mode-line)
