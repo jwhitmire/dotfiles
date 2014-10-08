@@ -117,6 +117,7 @@ tramp
 .backup
 .apdisk
 ._.*
+.psql_history
 
 dev
 etc
