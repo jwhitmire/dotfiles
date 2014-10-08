@@ -18,7 +18,8 @@ tunnels=(
     'nell' '127.0.100.208' 443 30208
     'joe' '127.0.100.209' 443 30209
     'paul' '127.0.100.210' 443 30210
-    'jeff' '127.0.100.211' 443 30211
+    'jdubs' '127.0.100.211' 443 30211
+    'odie' '127.0.100.212' 443 30212
 )
 
 export SUDO_PROMPT='Your workstation password: '
@@ -26,14 +27,13 @@ dest="tunnel@173.247.96.8"
 
 function create_interface()
 {
-    echo "[+] Creating virtual interface:  $1"
-    ifconfig | grep -q $1 || sudo ifconfig lo0 alias $1
+    ifconfig | grep -q $1 || echo "[+] Creating virtual interface:  $1" && sudo ifconfig lo0 alias $1
 }
 
 function rip_down_current_tunnels()
 {
-    echo "[-] Ripping down existing tunnels to $dest"
-    for i in `ps auxwww | egrep -- "ssh.*(-L|-R)+.*$dest" | grep -v grep | awk '{print $2}'`
+    echo -n "[-] Ripping down existing tunnels to $dest"
+    for i in `ps auxwww | grep ssh | grep $dest | egrep -- "-L|-R" | grep -v grep | awk '{print $2}'`
     do
         sudo kill $i
     done
@@ -45,7 +45,7 @@ function prepare()
     tmp_hosts=/tmp/.hosts
     cp /etc/hosts $tmp_hosts
 
-    for ((i=0; i<${#tunnels[@]}; i=i+4))
+    for (( i=0; i<${#tunnels[@]}; i=i+4))
     do
         host=${tunnels[$i]}
         ip=${tunnels[$((i+1))]}
@@ -56,7 +56,7 @@ function prepare()
         mv /tmp/x $tmp_hosts
     done
 
-    if diff /etc/hosts $tmp_hosts >/dev/null ; then
+    if diff /etc/hosts /tmp/.hosts >/dev/null ; then
         rm $tmp_hosts
     else
         sudo cp /etc/hosts /etc/hosts.old
@@ -94,8 +94,7 @@ function reestablish_tunnels()
     fi
 
     cmd="$cmd $dest"
-
-        echo "cmd ==> $cmd"
+    echo "About to execute ==> $cmd"
     sudo $cmd
 }
 
