@@ -1,0 +1,4 @@
+---
+BUNDLE_BUILD__PG: "--with-pg-config=/usr/bin/pg_config"
+BUNDLE_PATH: ".bundle"
+BUNDLE_BUILD__NOKOGIRI: "--use-system-libraries"
