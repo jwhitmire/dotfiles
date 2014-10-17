@@ -1,7 +1,7 @@
 ;;
 ;; Initialize packages via Cask/pallet
 ;;
-(require 'cask "/usr/local/Cellar/cask/0.7.1/cask.el")
+(require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
 (cask-initialize)
 (require 'pallet)
 
@@ -230,6 +230,14 @@ there's a region all lines that region covers will be duplicated."
 (require 'smartparens-ruby)
 (smartparens-global-mode)
 (show-smartparens-global-mode t)
+
+(defun sp-web-mode-is-code-context (id action context)
+  (when (and (eq action 'insert)
+             (not (or (get-text-property (point) 'part-side)
+                      (get-text-property (point) 'block-side))))
+    t))
+(sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
+
 (sp-with-modes '(rhtml-mode)
   (sp-local-pair "<" ">")
   (sp-local-pair "<%" "%>"))
@@ -325,7 +333,16 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
-        web-mode-comment-style 2))
+        web-mode-comment-style 2
+        web-mode-style-padding 1
+        web-mode-script-padding 1
+        web-mode-block-padding 0
+        web-mode-enable-auto-pairing t
+        web-mode-enable-css-colorization t
+        web-mode-enable-comment-keywords t
+        web-mode-enable-heredoc-fontification t
+        web-mode-enable-current-element-highlight t)
+  (local-set-key (kbd "RET") 'newline-and-indent))
 (add-hook 'web-mode-hook 'jw-web-mode-hook)
 
 (define-key web-mode-map (kbd "C-n") 'web-mode-tag-match)
@@ -340,12 +357,9 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
         ("php" . (("open" "close")
                   ("open" "close")))))
 
-(setq web-mode-enable-auto-pairing t
-      web-mode-enable-css-colorization t
-      web-mode-enable-comment-keywords t
-      web-mode-enable-heredoc-fontification t
-      web-mode-enable-current-element-highlight t)
-
+(setq web-mode-ac-sources-alist
+      '(("css" . (ac-source-css-property))
+        ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; snippets
