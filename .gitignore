@@ -35,6 +35,7 @@ Public
 .inkscape-etc
 .jbapps-*
 .mono
+.atom
 
 ################################################################################
 # Emacs specific files
