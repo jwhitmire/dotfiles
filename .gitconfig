@@ -83,7 +83,7 @@
 	numbered = auto
 	pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
 [core]
-	excludesfile = /home/deploy/.gitignore
+	excludesfile = ~/.gitignore
 	autocrlf = false
 	safecrlf = true
 	quotepath = false
