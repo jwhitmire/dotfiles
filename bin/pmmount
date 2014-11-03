@@ -20,5 +20,13 @@ else
         sshfs triage.vm:/srv/mothership/current ~/work/vm/mothership -o volname=mothership.vm
         echo "mothership.vm mounted"
     fi
+
+    if [ "$(ls -A ~/work/vm/home)" ]
+    then
+        echo "home.vm already mounted"
+    else
+        sshfs triage.vm:/home/deploy ~/work/vm/home -o volname=home.vm
+        echo "home.vm mounted"
+    fi
 fi
 

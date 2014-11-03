@@ -16,3 +16,10 @@ else
     echo "mothership is not mounted"
 fi
 
+if [ "$(ls -A ~/work/vm/home)" ]
+then
+    umount ~/work/vm/home
+    echo "home has been unmounted"
+else
+    echo "home is not mounted"
+fi
