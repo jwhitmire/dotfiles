@@ -1,0 +1,9 @@
+#!/bin/bash
+tunnels=(
+  "-L 2022:localhost:2022"        # tmate
+ )
+
+for i in `ps auxwww | grep "ssh -f -N ${tunnels[*]} utl" | grep -v grep | awk '{print $2}'`
+  do kill $i
+done
+ssh -f -N ${tunnels[*]} utl
