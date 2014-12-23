@@ -6,6 +6,7 @@
 .byebug_hist
 .irb-history
 .psql_history
+.qws
 
 ################################################################################
 # OSX specific files
