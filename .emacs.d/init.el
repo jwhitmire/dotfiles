@@ -21,7 +21,7 @@
 ;; setup load path/directories
 ;;
 (setq dotfiles-dir (file-name-directory
-                    (or (buffer-file-name) load-file-name)))
+        (or (buffer-file-name) load-file-name)))
 
 (setq init-dir (expand-file-name "init" dotfiles-dir)
       my-site-lisp-dir (expand-file-name "site-lisp" dotfiles-dir)
@@ -110,6 +110,85 @@
 (load custom-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; term setup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(when (require 'multi-term nil t)
+  (global-set-key (kbd "<f5>") 'multi-term)
+  (global-set-key (kbd "C-c t") 'multi-term-next)
+  (global-set-key (kbd "C-c T") 'multi-term-prev)
+  (setq multi-term-buffer-name "term"
+        multi-term-program "/usr/local/bin/zsh"))
+
+(when (require 'term nil t) ; only if term can be loaded
+  (defun term-handle-ansi-terminal-messages (message)
+    (while (string-match "\eAnSiT.+\n" message)
+      ;; Extract the command code and the argument
+      (let* ((start (match-beginning 0))
+       (command-code (aref message (+ start 6)))
+       (argument
+        (save-match-data
+    (substring message
+         (+ start 8)
+         (string-match "\r?\n" message
+           (+ start 8))))))
+  ;; Delete command from MESSAGE
+  (setq message (replace-match "" t t message))
+
+  (cond ((= command-code ?c)
+         (setq term-ansi-at-dir argument))
+        ((= command-code ?h)
+         (setq term-ansi-at-host argument))
+        ((= command-code ?u)
+         (setq term-ansi-at-user argument))
+        ((= command-code ?e)
+         (save-excursion
+     (find-file-other-window argument)))
+        ((= command-code ?x)
+         (save-excursion
+     (find-file argument))))))
+
+    (when (and term-ansi-at-host term-ansi-at-dir term-ansi-at-user)
+      (setq buffer-file-name
+      (format "%s@%s:%s" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))
+      (set-buffer-modified-p nil)
+      (setq default-directory (if (string= term-ansi-at-host (system-name))
+          (concatenate 'string term-ansi-at-dir "/")
+        (format "/%s@%s:%s/" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))))
+    message)
+
+  (setq term-bind-key-alist
+        (list (cons "C-c C-c" 'term-interrupt-subjob)
+              (cons "C-p" 'previous-line)
+              (cons "C-n" 'next-line)
+              (cons "M-f" 'term-send-forward-word)
+              (cons "M-b" 'term-send-backward-word)
+              (cons "M-o" 'term-send-backspace)
+              (cons "C-c C-j" 'term-line-mode)
+              (cons "C-c C-k" 'term-char-mode)
+              (cons "M-DEL" 'term-send-backward-kill-word)
+              (cons "M-d" 'term-send-forward-kill-word)
+              (cons "M-b" 'term-send-backward-word)
+              (cons "M-f" 'term-send-forward-word)
+              (cons "C-s" 'isearch-forward)
+              (cons "C-r" 'iserach-backward)
+              (cons "C-m" 'term-send-raw)
+              (cons "M-p" 'term-send-raw-meta)
+              (cons "M-y" 'term-send-raw-meta))))
+
+(add-hook 'term-mode-hook
+    (lambda ()
+      (setq term-buffer-maximum-size 10000
+            autopair-dont-activate t
+            autopair-mode -1
+            show-trailing-whitespace nil)
+      (define-key term-raw-map (kbd "C-y") 'term-paste)))
+
+;;(add-to-list 'load-path (expand-file-name "emux" my-site-lisp-dir))
+;;(require 'emux)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto-complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (ac-config-default)
@@ -124,10 +203,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq flyspell-issue-message-flg nil)
 (add-hook 'enh-ruby-mode
-          (lambda () (flyspell-prog-mode)))
+    (lambda () (flyspell-prog-mode)))
 
 (add-hook 'web-mode-hook
-          (lambda () (flyspell-prog-mode)))
+    (lambda () (flyspell-prog-mode)))
 
 ;; flyspell breaks auto-complete without this
 (ac-flyspell-workaround)
@@ -159,8 +238,8 @@
 
 (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 (add-hook 'eshell-mode-hook
-          #'(lambda ()
-              (define-key eshell-mode-map (kbd "M-l") 'helm-eshell-history)))
+    #'(lambda ()
+        (define-key eshell-mode-map (kbd "M-l") 'helm-eshell-history)))
 
 (dolist ($hook '(css-mode-hook scss-mode-hook less-css-mode-hook))
   (add-hook
@@ -180,19 +259,24 @@ there's a region all lines that region covers will be duplicated."
   (interactive "p")
   (let (beg end (origin (point)))
     (if (and mark-active (> (point) (mark)))
-        (exchange-point-and-mark))
+  (exchange-point-and-mark))
     (setq beg (line-beginning-position))
     (if mark-active
-        (exchange-point-and-mark))
+  (exchange-point-and-mark))
     (setq end (line-end-position))
     (let ((region (buffer-substring-no-properties beg end)))
       (dotimes (i arg)
-        (goto-char end)
-        (newline)
-        (insert region)
-        (setq end (point)))
+  (goto-char end)
+  (newline)
+  (insert region)
+  (setq end (point)))
       (goto-char (+ origin (* (length region) arg) arg)))))
 (global-set-key (kbd "C-D") 'duplicate-current-line-or-region)
+
+(defun join-next-line ()
+  "Join the current line with the line beneath it."
+  (interactive)
+  (delete-indentation 1))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keybindings
@@ -218,6 +302,13 @@ there's a region all lines that region covers will be duplicated."
 (define-key global-map (kbd "C-+") 'text-scale-increase)
 (define-key global-map (kbd "C--") 'text-scale-decrease)
 
+(global-unset-key (kbd "C-y"))
+(global-unset-key (kbd "C-w"))
+(global-unset-key (kbd "M-w"))
+(global-set-key (kbd "M-c") 'kill-ring-save)
+(global-set-key (kbd "M-C") 'kill-region)
+(global-set-key (kbd "M-v") 'yank)
+
 (global-set-key (kbd "M-z") 'undo)
 (global-set-key (kbd "M-Z") 'redo)
 
@@ -233,8 +324,8 @@ there's a region all lines that region covers will be duplicated."
 
 (defun sp-web-mode-is-code-context (id action context)
   (when (and (eq action 'insert)
-             (not (or (get-text-property (point) 'part-side)
-                      (get-text-property (point) 'block-side))))
+       (not (or (get-text-property (point) 'part-side)
+          (get-text-property (point) 'block-side))))
     t))
 (sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
 
@@ -262,6 +353,10 @@ there's a region all lines that region covers will be duplicated."
   (progn '(global-set-key (kbd "M-C-g") 'magit-status)))
 
 (global-set-key (kbd "C-x g") 'magit-status)
+
+(global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
+(global-set-key (kbd "M-j") 'join-next-line)
+(global-set-key (kbd "C-M-j") 'join-line)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ruby mode
@@ -309,9 +404,9 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
        (line-number-at-pos)) t))
 
 (add-hook 'enh-ruby-mode-hook
-          (lambda ()
-            (local-set-key (kbd "C-c l") 'rspec-compile-on-line)
-            (local-set-key (kbd "C-c k") 'rspec-compile-file)))
+    (lambda ()
+      (local-set-key (kbd "C-c l") 'rspec-compile-on-line)
+      (local-set-key (kbd "C-c k") 'rspec-compile-file)))
 
 (add-hook 'enh-ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
@@ -395,9 +490,9 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (hes-mode)
 (require 'highlight-indentation)
 (add-hook 'enh-ruby-mode-hook
-          (lambda () (highlight-indentation-current-column-mode)))
+    (lambda () (highlight-indentation-current-column-mode)))
 (add-hook 'coffee-mode-hook
-          (lambda () (highlight-indentation-current-column-mode)))
+    (lambda () (highlight-indentation-current-column-mode)))
 
 ;;(global-rainbow-delimiters-mode)
 
@@ -413,6 +508,5 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (require 'octicons)
 (make-face 'octicons-mode-line)
 (set-face-attribute 'octicons-mode-line nil
-                    :inherit 'mode-line
-                    :inherit 'octicons)
-
+        :inherit 'mode-line
+        :inherit 'octicons)

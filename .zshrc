@@ -1,11 +1,8 @@
-# Path to your oh-my-zsh configuration.
-export ZSH=$HOME/.oh-my-zsh
-
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-ZSH_THEME="muse"
+if [ -n "$INSIDE_EMACS" ]; then
+    export ZSH_THEME="clean"
+else
+    export ZSH_THEME="muse"
+fi
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
@@ -34,7 +31,7 @@ ZSH_CUSTOM=$HOME/.omz-custom
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(bundler colored-man colorize gem git git-extras git-remote-branch gitfast gitignore history jira postgres python rails rake systemadmin themes zsh-syntax-highlighting phishme)
+plugins=(brew brew-cask bundler colored-man colorize gem git git-extras git-remote-branch gitfast gitignore history jira postgres python rails rake ssh-agent systemadmin themes tmux tmuxinator zsh_reload zsh-syntax-highlighting phishme)
 
 source $ZSH/oh-my-zsh.sh
 
