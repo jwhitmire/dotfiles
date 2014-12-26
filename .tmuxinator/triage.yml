@@ -25,5 +25,5 @@ windows:
         - emacs
         - guard
   - console: bundle exec rails c
-  - specs: bundle exec rake spec:fuubar
+  - specs: bundle exec rspec -f Fuubar
   - logs: tail -f log/development.log
