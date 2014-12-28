@@ -93,9 +93,11 @@ tramp
 # zsh related files
 ################################################################################
 .oh-my-zsh
+.zprezto
 .zcompdump*
 .zsh-update
 .zsh_history
+.zhistory
 
 ################################################################################
 # vim related files
