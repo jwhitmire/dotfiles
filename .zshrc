@@ -10,11 +10,13 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
 
-
 #
 # Customizations
 #
 path=("$HOME/bin" $path)
 
+#
+# Customizations
+#
 alias gst='git status'
 compdef _git gst=git-status
