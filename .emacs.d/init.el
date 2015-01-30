@@ -361,7 +361,7 @@ there's a region all lines that region covers will be duplicated."
 (add-hook 'slime-mode-hook 'set-up-slime-ac)
 (add-hook 'slime-repl-mode-hook 'set-up-slime-ac)
 (eval-after-load "auto-complete"
-                   '(add-to-list 'ac-modes 'slime-repl-mode))
+  '(add-to-list 'ac-modes 'slime-repl-mode))
 
 ;;(setq inferior-lisp-program "/usr/local/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
@@ -369,7 +369,9 @@ there's a region all lines that region covers will be duplicated."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ruby mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(chruby "ruby-2.1.2")
+(add-hook 'enh-ruby-mode-hook
+          (lambda ()
+            (rvm-activate-corresponding-ruby)))
 
 (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
