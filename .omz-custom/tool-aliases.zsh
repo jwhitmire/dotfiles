@@ -31,3 +31,6 @@ alias ff='find . -type f -name'
 # memcache flush
 alias flush='echo "flush_all" | nc localhost 11211'
 alias resetdns='dscacheutil -flushcache;sudo killall -HUP mDNSResponder'
+
+# puppet
+alias papply='sudo puppet apply --hiera_config=/opt/phishme/puppet/hiera/hiera.yaml --modulepath=/opt/phishme/puppet/modules /opt/phishme/puppet/manifests/triage.pp -l /opt/phishme/puppet/puppet.log'
