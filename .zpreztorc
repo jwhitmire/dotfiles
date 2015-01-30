@@ -39,6 +39,8 @@ zstyle ':prezto:load' pmodule \
   'tmux' \
   'utility' \
   'ruby' \
+  'jwcustom' \
+  'jwprojects' \
   'syntax-highlighting' \
   'history-substring-search' \
   'prompt'
