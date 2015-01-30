@@ -70,6 +70,8 @@
 (depends-on "ruby-refactor")
 ;;(depends-on "ruby-test-mode")
 (depends-on "ruby-tools")
+(depends-on "slime")
+(depends-on "ac-slime")
 (depends-on "smart-mode-line")
 (depends-on "smartparens")
 (depends-on "splitter")
