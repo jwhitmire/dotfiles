@@ -55,6 +55,7 @@ projectile.cache
 recentf
 savehist
 tramp
+.slime
 .\#*
 
 .cask
