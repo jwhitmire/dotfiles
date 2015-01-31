@@ -14,7 +14,7 @@ fi
 #
 # Customizations
 #
-path=("$HOME/bin" $path)
+path=("$HOME/bin" "$HOME/.cask/bin" $path)
 
 alias gst='git status'
 compdef _git gst=git-status
