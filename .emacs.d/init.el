@@ -14,6 +14,10 @@
 
 (setq debug-on-error t)
 
+(let ((gls "/usr/local/bin/gls"))
+  (if (file-exists-p gls)
+      (setq insert-directory-program gls)))
+
 ;;(setq user-full-name "Jeff Whitmire"
 ;;      user-mail-address "jeff.whitmire@phishme.com")
 
@@ -515,6 +519,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (add-to-list 'sml/replacer-regexp-list '("^~/work/vm/mothership" ":MS:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/work/vm/" ":VM:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/projects/armstrong/armstrong" ":ARM:") t)
+(add-to-list 'sml/replacer-regexp-list '("^~/projects/dh/PackageFox" ":PF:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/projects" ":PROJ:") t)
 
 (require 'octicons)
