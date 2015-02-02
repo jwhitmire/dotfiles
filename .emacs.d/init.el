@@ -184,10 +184,6 @@
             show-trailing-whitespace nil)
       (define-key term-raw-map (kbd "C-y") 'term-paste)))
 
-;;(add-to-list 'load-path (expand-file-name "emux" my-site-lisp-dir))
-;;(require 'emux)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; auto-complete
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -195,14 +191,14 @@
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/dict")
 
 (setq ac-ignore-case nil)
-(add-to-list 'ac-modes 'enh-ruby-mode)
+(add-to-list 'ac-modes 'ruby-mode)
 (add-to-list 'ac-modes 'web-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; flyspell
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (setq flyspell-issue-message-flg nil)
-(add-hook 'enh-ruby-mode
+(add-hook 'ruby-mode
     (lambda () (flyspell-prog-mode)))
 
 (add-hook 'web-mode-hook
@@ -336,11 +332,11 @@ there's a region all lines that region covers will be duplicated."
 (setq ag-highlight-search t)
 
 (add-hook 'projectile-mode-hook 'projectile-rails-on)
-(setq projectile-rails-expand-snippet nil)
 
 (require 'grizzl)
 (projectile-global-mode)
-(setq projectile-enable-caching t
+(setq projectile-rails-expand-snippet nil
+      projectile-enable-caching t
       projectile-completion-system 'grizzl)
 
 ;; Cmd-p for finding in project
@@ -375,20 +371,19 @@ there's a region all lines that region covers will be duplicated."
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (chruby "ruby-2.1.2")
 
-(add-hook 'enh-ruby-mode-hook 'inf-ruby-minor-mode)
+(add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
 
-;;(add-hook 'projectile-mode-hook 'projectile-rails-on)
+(define-key inf-ruby-minor-mode-map (kbd "C-c C-z") 'run-ruby)
+(when (executable-find "pry")
+  (add-to-list 'inf-ruby-implementations '("pry" . "pry"))
+  (setq inf-ruby-default-implementation "pry"))
 
 ;; .rb, .gemspec, and Rakefile already added by autoloads
-(add-to-list 'auto-mode-alist '("\\.rake$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("\\.ru$" . enh-ruby-mode))
-(add-to-list 'auto-mode-alist '("Gemfile$" . enh-ruby-mode))
+(add-to-list 'auto-mode-alist '("\\.(?:rake\\|ru\\|gemspec\\|thor\\|jbuilder)$" . ruby-mode))
+(add-to-list 'auto-mode-alist '("(?:Gem\|Guard\\|Cap\\|Thor\\|Vagrant)file(?:\\.lock)?$" . ruby-mode))
 
-(add-to-list 'interpreter-mode-alist '("ruby" . enh-ruby-mode))
-
-(setq enh-ruby-bounde-deep-indent t
-      enh-ruby-hanging-brace-indent-level 2)
+(add-to-list 'interpreter-mode-alist '("ruby" . ruby-mode))
 
 (defun* get-closest-gemfile-root (&optional (file "Gemfile"))
   "Determine the pathname of the first instance of FILE starting from the current directory
@@ -402,30 +397,30 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
      if (equal d root)
      return nil)))
 
-(defun rspec-compile-file ()
-  (interactive)
-  (compile (format "cd %s;bundle exec rspec %s"
-       (get-closest-gemfile-root)
-       (file-relative-name (buffer-file-name) (get-closest-gemfile-root))) t))
-
-(defun rspec-compile-on-line ()
-  (interactive)
-  (compile (format "cd %s;bundle exec rspec %s -l %s"
-       (get-closest-gemfile-root)
-       (file-relative-name (buffer-file-name) (get-closest-gemfile-root))
-       (line-number-at-pos)) t))
-
-(add-hook 'enh-ruby-mode-hook
-    (lambda ()
-      (local-set-key (kbd "C-c l") 'rspec-compile-on-line)
-      (local-set-key (kbd "C-c k") 'rspec-compile-file)))
-
-(add-hook 'enh-ruby-mode-hook 'robe-mode)
+(add-hook 'ruby-mode-hook 'robe-mode)
 (add-hook 'robe-mode-hook 'ac-robe-setup)
 
-(add-hook 'enh-ruby-mode 'ruby-tools-mode)
-(add-hook 'enh-ruby-mode 'ruby-refactor-mode-launch)
-(add-hook 'enh-ruby-mode 'turn-on-ruby-dev)
+(add-hook 'ruby-mode 'ruby-tools-mode)
+(add-hook 'ruby-mode 'ruby-refactor-mode-launch)
+(add-hook 'ruby-mode 'turn-on-ruby-dev)
+
+(eval-after-load 'rspec-mode
+  '(rspec-install-snippets))
+
+(defadvice rspec-compile (around rspec-compile-around)
+  "Use BASH shell for running specs due to ZSH issues."
+  (let ((shell-file-name "/usr/local/bin/bash")
+        (default-directory (projectile-rails-root)))
+    (message "------------- DEBUG ------------------")
+    (message "default-directory: %s" default-directory)
+    (message "projectile-rails-root: %s" (projectile-rails-root))
+    (message "------------- DEBUG ------------------")
+    ad-do-it))
+
+(ad-activate 'rspec-compile)
+
+(defadvice inf-ruby-console-auto (before activate-rvm-for-robe activate)
+  (rvm-activate-corresponding-ruby))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; web-mode
@@ -476,9 +471,9 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (yas-global-mode 1)
 
 ;; dash documentation
-;;(global-set-key (kbd "C-c d") 'dash-at-point)
-;;(global-set-key (kbd "C-c D") 'helm-dash-at-point)
-;;(global-set-key (kbd "C-h D") 'helm-dash)
+(global-set-key (kbd "C-c d") 'dash-at-point)
+(global-set-key (kbd "C-c D") 'helm-dash-at-point)
+(global-set-key (kbd "C-h D") 'helm-dash)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; theme/window setup
@@ -501,7 +496,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (hes-mode)
 (require 'highlight-indentation)
-(add-hook 'enh-ruby-mode-hook
+(add-hook 'ruby-mode-hook
     (lambda () (highlight-indentation-current-column-mode)))
 (add-hook 'coffee-mode-hook
     (lambda () (highlight-indentation-current-column-mode)))

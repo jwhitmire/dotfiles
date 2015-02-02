@@ -56,8 +56,11 @@
  '(multi-term-program "/usr/local/bin/zsh")
  '(multi-term-scroll-show-maximum-output t)
  '(multi-term-scroll-to-bottom-on-output t)
- '(org-CUA-compatible nil)
  '(org-replace-disputed-keys t)
+ '(rspec-command-options "--format Fuubar")
+ '(rspec-snippets-fg-syntax (quote concise))
+ '(rspec-use-rake-when-possible nil)
+ '(rspec-use-rvm t)
  '(ruby-align-to-stmt-keywords (quote (def if case unless while)))
  '(safe-local-variable-values
    (quote
