@@ -34,12 +34,13 @@ servers = (
     port = "6667";
   },
   {
-    address = "jwhitmire.irc.slack.com";
+    address = "phishtacos.irc.slack.com";
     chatnet = "slack";
     port = "6667";
-    password = "Axw8FQiQ7TfusrLbqGL[";
+    password = "phishtacos.rnwv8LHcCmCu7fde27NE";
     use_ssl = "yes";
     ssl_verify = "no";
+    autoconnect = "yes";
   }
 );
 
@@ -112,7 +113,7 @@ chatnets = {
     max_msgs = "1";
     max_whois = "1";
   };
-  slack = { type = "IRC"; nick = "jwhitmire"; };
+  slack = { type = "IRC"; nick = "jdubs"; };
 };
 
 channels = (
@@ -124,7 +125,10 @@ channels = (
   { name = "#ircsource"; chatnet = "IRCSource"; autojoin = "No"; },
   { name = "#netfuze"; chatnet = "NetFuze"; autojoin = "No"; },
   { name = "#oftc"; chatnet = "OFTC"; autojoin = "No"; },
-  { name = "silc"; chatnet = "SILC"; autojoin = "No"; }
+  { name = "silc"; chatnet = "SILC"; autojoin = "No"; },
+  { name = "#general"; chatnet = "slack"; autojoin = "yes"; },
+  { name = "#_pm_dev_triage"; chatnet = "slack"; autojoin = "yes"; },
+  { name = "#_pm_dev_ci"; chatnet = "slack"; autojoin = "yes"; }
 );
 
 aliases = {
