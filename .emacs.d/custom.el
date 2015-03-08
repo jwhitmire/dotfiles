@@ -49,6 +49,7 @@
    ";; This is your chance to scratch where it itches... in a manner of speaking
 ;;
 ")
+ '(js-indent-level 2)
  '(menu-bar-mode t)
  '(multi-term-buffer-name "multi-term")
  '(multi-term-dedicated-max-window-height 40)
