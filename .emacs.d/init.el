@@ -348,15 +348,20 @@ there's a region all lines that region covers will be duplicated."
 ;; Cmd-b for fuzzy switch buffer
 (global-set-key (kbd "s-b") 'projectile-switch-to-buffer)
 
-;; Git mode
-(eval-after-load 'magit
-  (progn '(global-set-key (kbd "M-C-g") 'magit-status)))
-
-(global-set-key (kbd "C-x g") 'magit-status)
-
 (global-set-key (kbd "C-c C-c") 'comment-or-uncomment-region)
 (global-set-key (kbd "M-j") 'join-next-line)
 (global-set-key (kbd "C-M-j") 'join-line)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; git mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(eval-after-load 'magit
+  (progn '(global-set-key (kbd "M-C-g") 'magit-status)))
+
+(setq magit-last-seen-setup-instructions "1.4.0")
+
+(global-set-key (kbd "C-x g") 'magit-status)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lisp mode
@@ -498,6 +503,21 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; org-mode stuff
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq org-completion-use-ido t
+      org-startup-folded 'content
+      org-startup-indented t)
+
+(global-set-key (kbd "C-c a") 'org-agenda)
+
+(defun jw-org-mode-hook ()
+  (local-set-key (kbd "M-n") 'outline-next-visible-heading)
+  (local-set-key (kbd "M-p") 'outline-previous-visible-heading)
+  (local-set-key (kbd "M-L") 'org-toggle-link-display))
+(add-hook 'org-mode-hook 'jw-org-mode-hook)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; highlight stuff
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (hes-mode)
@@ -527,3 +547,33 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (set-face-attribute 'octicons-mode-line nil
         :inherit 'mode-line
         :inherit 'octicons)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; guide-key setup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(setq guide-key/guide-key-sequence '("C-x r" "C-x 4" "C-h"))
+(setq guide-key/guide-key-sequence t
+      guide-key/popup-window-position 'bottom
+      guide-key/idle-delay 0.5
+      guide-key/align-command-by-space-flag t)
+
+(guide-key-mode 1)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; multiple-cursors
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(global-set-key (kbd "C-s-c") 'mc/edit-lines)
+(global-set-key (kbd "C->") 'mc/mark-next-like-this)
+(global-set-key (kbd "C-<") 'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<") 'mc/mark-all-like-this)
+(global-set-key (kbd "C-/") 'expand-region)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; server setup
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun server-shutdown ()
+  "save buffers, then shut down server"
+  (interactive)
+  (save-some-buffers)
+  (kill-emacs))
