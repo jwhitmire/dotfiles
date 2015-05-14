@@ -1,6 +1,7 @@
-(source "melpa" "http://melpa.milkbox.net/packages/")
-(source "gnu" "http://elpa.gnu.org/packages/")
+(source "melpa"     "http://melpa.milkbox.net/packages/")
+(source "gnu"       "http://elpa.gnu.org/packages/")
 (source "marmalade" "http://marmalade-repo.org/packages/")
+(source "org"       "http://orgmode.org/elpa/")
 
 (depends-on "pallet")
 (depends-on "cask")
@@ -15,6 +16,7 @@
 (depends-on "dash")
 (depends-on "dash-at-point")
 ;; (depends-on "ecb")
+(depends-on "expand-region")
 (depends-on "ruby-mode")
 (depends-on "exec-path-from-shell")
 (depends-on "flyspell")
@@ -53,6 +55,15 @@
 (depends-on "markdown-mode+")
 (depends-on "multiple-cursors")
 (depends-on "multi-term")
+
+;;(depends-on "org")
+(depends-on "org-plus-contrib")
+;;(depends-on "org-assoc-tags")
+;;(depends-on "org-buffers")
+;;(depends-on "org-extension")
+;;(depends-on "org-impress-js")
+;;(depends-on "org-mode")
+
 (depends-on "pretty-lambdada")
 (depends-on "projectile")
 (depends-on "projectile-rails")
