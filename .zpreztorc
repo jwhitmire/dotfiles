@@ -27,11 +27,11 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'completion' \
   'directory' \
+  'dpkg' \
   'editor' \
   'git' \
   'history' \
   'homebrew' \
-  'osx' \
   'rails' \
   'spectrum' \
   'ssh' \
@@ -39,6 +39,7 @@ zstyle ':prezto:load' pmodule \
   'tmux' \
   'utility' \
   'ruby' \
+  'yum' \
   'jwcustom' \
   'jwprojects' \
   'jwtriage' \
