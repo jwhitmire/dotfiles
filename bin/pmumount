@@ -1,25 +1,8 @@
 #!/bin/bash
 
-if [ "$(ls -A ~/work/vm/triage)" ]
-then
-    umount ~/work/vm/triage
-    echo "triage.vm has been unmounted"
-else
-    echo "triage.vm is not mounted"
-fi
+for f in ~/work/vm/*
+do
+    echo "Unmounting $f"
+    umount $f
+done
 
-if [ "$(ls -A ~/work/vm/mothership)" ]
-then
-    umount ~/work/vm/mothership
-    echo "mothership has been unmounted"
-else
-    echo "mothership is not mounted"
-fi
-
-if [ "$(ls -A ~/work/vm/home)" ]
-then
-    umount ~/work/vm/home
-    echo "home has been unmounted"
-else
-    echo "home is not mounted"
-fi
