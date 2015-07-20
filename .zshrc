@@ -21,3 +21,7 @@ path=("$HOME/bin" $path)
 alias gst='git status'
 compdef _git gst=git-status
 export MITSCHEME_LIBRARY_PATH="/Applications/MIT\:GNU\ Scheme.app/Contents/Resources"
+
+export GOPATH=~/dev/go
+export PATH=$PATH:$GOPATH/bin
+
