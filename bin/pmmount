@@ -1,32 +1,36 @@
 #!/bin/bash
 
+BASE_DIR="/Users/jeffwhitmire/work/vm"
+MOUNTS=( "triage;/srv/appliance/dev" "mothership;/srv/mothership/dev" "home;/home/deploy" )
+
 triage_count=$( ping -c 1 triage.vm | grep icmp* | wc -l )
 if [ $triage_count -eq 0 ]
 then
-   echo "triage.vm is down"
-else
-    if [ "$(ls -A ~/work/vm/triage)" ]
-    then
-        echo "triage.vm already mounted"
-    else
-        sshfs triage.vm:/srv/appliance/root ~/work/vm/triage -o fsname=triage.vm
-        echo "triage.vm mounted"
-    fi
-
-    if [ "$(ls -A ~/work/vm/mothership)" ]
-    then
-        echo "mothership.vm already mounted"
-    else
-        sshfs triage.vm:/srv/mothership/root ~/work/vm/mothership -o fsname=mothership.vm
-        echo "mothership.vm mounted"
-    fi
-
-    if [ "$(ls -A ~/work/vm/home)" ]
-    then
-        echo "home.vm already mounted"
-    else
-        sshfs triage.vm:/home/deploy ~/work/vm/home -o fsname=home.vm
-        echo "home.vm mounted"
-    fi
+    echo "triage.vm is down"
+    echo 0
 fi
+
+for mnt in ${MOUNTS[@]}
+do
+    MOUNT_POINTS=($(echo $mnt | tr ";" "\n"))
+
+    MOUNT_DIR="${BASE_DIR}/${MOUNT_POINTS[0]}"
+
+    echo "Checking ${MOUNT_POINTS[0]}"
+
+    if [ ! -d "$MOUNT_DIR" ]
+    then
+        mkdir -p $MOUNT_DIR
+    fi
+
+    if [ "$(ls -A $MOUNT_DIR)" ]
+    then
+        echo "Already mounted"
+    else
+        sshfs triage.vm:${MOUNT_POINTS[1]} $MOUNT_DIR -ocache=yes,kernel_cache,compression=no
+        echo "mounted"
+    fi
+    echo
+
+done
 
