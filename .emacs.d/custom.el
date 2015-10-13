@@ -32,7 +32,6 @@
  '(helm-ff-search-library-in-sexp t)
  '(helm-google-suggest-use-curl-p t)
  '(helm-idle-delay 0.01)
- '(helm-match-plugin-mode t nil (helm-match-plugin))
  '(helm-mode t)
  '(helm-move-to-line-cycle-in-source t)
  '(helm-quick-update t)

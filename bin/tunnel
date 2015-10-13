@@ -74,14 +74,6 @@ function reestablish_tunnels()
     done
 
 
-    # This is only relevant to developers
-    if [[ -n "$MY_VM_TUNNEL_PORT" ]]
-    then
-        cmd="$cmd -R $MY_VM_TUNNEL_PORT:phishme.vm:443"
-        echo "[*] phishme.vm (remote)"
-#        echo "    => $args"
-    fi
-
     cmd="$cmd $dest"
 
     sudo $cmd

@@ -1,7 +1,7 @@
 ;;
 ;; Initialize packages via Cask/pallet
 ;;
-(require 'cask "/usr/local/share/emacs/site-lisp/cask.el")
+(require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 (require 'pallet)
 
@@ -389,6 +389,11 @@ there's a region all lines that region covers will be duplicated."
 
 (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
+(add-hook 'after-init-hook #'global-flycheck-mode)
+(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-mode)
+;;(require 'flycheck-color-mode-line)
+;;(eval-after-load "flycheck"
+  ;;'(add-hook 'flycheck-mode-hook 'flycheck-color-mode-line-hook))
 
 (define-key inf-ruby-minor-mode-map (kbd "C-c C-z") 'run-ruby)
 (when (executable-find "pry")
@@ -506,6 +511,16 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 
 (add-hook 'dired-mode-hook 'turn-on-stripe-buffer-mode)
 (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
+
+(defun kill-all-buffers ()
+  "Kill all open buffers"
+  (interactive)
+  (mapc 'kill-buffer (buffer-list)))
+
+(defun kill-other-buffers ()
+  "Kill all buffers except the current one"
+  (interactive)
+  (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; org-mode stuff

@@ -1,6 +1,6 @@
 [user]
 	name = Jeff Whitmire
-	email = jeff.whitmire@phishme.com
+	email = jeff@jwhitmire.com
 [alias]
 	stash-unapply = !git stash show -p | git apply -R
 	a = add
@@ -83,7 +83,7 @@
 	numbered = auto
 	pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
 [core]
-	excludesfile = ~/.gitignore
+	excludesfile = /Users/jeffwhitmire/.gitignore
 	autocrlf = false
 	safecrlf = true
 	quotepath = false
@@ -103,3 +103,9 @@
 	stat = true
 [pull]
 	rebase = true
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
