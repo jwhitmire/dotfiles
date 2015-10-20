@@ -31,20 +31,18 @@ zstyle ':prezto:load' pmodule \
   'editor' \
   'git' \
   'history' \
-  'homebrew' \
   'rails' \
   'spectrum' \
   'ssh' \
   'terminal' \
   'tmux' \
   'utility' \
-  'ruby' \
   'yum' \
   'jwcustom' \
-  'jwprojects' \
   'jwtriage' \
   'syntax-highlighting' \
   'history-substring-search' \
+  'ruby' \
   'prompt'
 
 #
@@ -76,7 +74,7 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 #
 
 # turn off ls highlighting
-# zstyle ':prezto:module:utility:ls' color 'yes'
+zstyle ':prezto:module:utility:ls' color 'yes'
 
 # turn off diff highlighting
 # zstyle ':prezto:module:utility:diff' color 'no'
