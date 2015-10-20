@@ -1,9 +1,17 @@
 ;;
 ;; Initialize packages via Cask/pallet
 ;;
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
 (cask-initialize)
 (require 'pallet)
+(pallet-mode t)
 
 ;;
 ;; setup basic info
@@ -33,6 +41,9 @@
 
 (add-to-list 'load-path init-dir)
 (add-to-list 'load-path my-site-lisp-dir)
+
+(let ((default-directory "/usr/local/share/emacs/site-lisp/"))
+  (normal-top-level-add-subdirs-to-load-path))
 
 ;;
 ;; init loading helper functions
@@ -65,12 +76,17 @@
 ;;
 ;; OSX specific settings
 ;;
-(setq mac-option-key-is-meta nil
-      mac-command-key-is-meta t
-      mac-command-modifier 'meta
-      mac-option-modifier 'super
-      ns-function-modifier 'hyper
-      x-select-enable-clipboard t)
+(when (eq system-type 'darwin) ;; mac specific
+  (setq mac-command-modifier 'meta
+        mac-option-modifier 'super
+        mac-control-modifier 'control
+        ns-function-modifier 'hyper)
+  (global-set-key [kp-delete] 'delete-char)
+  )
+
+;; (setq mac-option-key-is-meta nil
+;;       mac-command-key-is-meta t
+;;       x-select-enable-clipboard t)
 
 (require 'exec-path-from-shell)
 (when (memq window-system '(mac ns))
@@ -357,16 +373,49 @@ there's a region all lines that region covers will be duplicated."
 (global-set-key (kbd "M-j") 'join-next-line)
 (global-set-key (kbd "C-M-j") 'join-line)
 
+(defun open-line-below ()
+  "Open a blank line below the current point."
+  (interactive)
+  (end-of-line)
+  (newline)
+  (indent-for-tab-command))
+
+(defun open-line-above ()
+  "Open a blank line above the current point."
+  (interactive)
+  (beginning-of-line)
+  (newline)
+  (forward-line -1)
+  (indent-for-tab-command))
+
+(global-set-key (kbd "<C-return>") 'open-line-below)
+(global-set-key (kbd "<-S-return>") 'open-line-above)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; git mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(eval-after-load 'magit
-  (progn '(global-set-key (kbd "M-C-g") 'magit-status)))
-
 (setq magit-last-seen-setup-instructions "1.4.0")
 
-(global-set-key (kbd "C-x g") 'magit-status)
+(global-set-key (kbd "C-c g") 'magit-status)
+
+(defadvice magit-status (around magit-fullscreen activate)
+  "Make magit-status run alone in a frame."
+  (window-configuration-to-register :magit-fullscreen)
+  ad-do-it
+  (delete-other-windows))
+
+(defun magit-quit-session ()
+  "Restore the previous window configuration and kill the magit buffer."
+  (interactive)
+  (kill-buffer)
+  (jump-to-register :magit-fullscreen))
+
+
+(eval-after-load 'magit
+  (progn
+    '(global-set-key (kbd "M-C-g") 'magit-status)
+    '(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lisp mode
@@ -453,6 +502,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (add-to-list 'auto-mode-alist '("\\.scss\\'" . web-mode))
 
 (defun jw-web-mode-hook ()
+  "Set web development related variables."
   (setq web-mode-markup-indent-offset 2
         web-mode-css-indent-offset 2
         web-mode-code-indent-offset 2
@@ -513,12 +563,12 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (add-hook 'org-mode-hook 'turn-on-stripe-table-mode)
 
 (defun kill-all-buffers ()
-  "Kill all open buffers"
+  "Kill all open buffers."
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
 
 (defun kill-other-buffers ()
-  "Kill all buffers except the current one"
+  "Kill all buffers except the current one."
   (interactive)
   (mapc 'kill-buffer (delq (current-buffer) (buffer-list))))
 
@@ -532,6 +582,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (global-set-key (kbd "C-c a") 'org-agenda)
 
 (defun jw-org-mode-hook ()
+  "Custom hook for 'org-mode'."
   (local-set-key (kbd "M-n") 'outline-next-visible-heading)
   (local-set-key (kbd "M-p") 'outline-previous-visible-heading)
   (local-set-key (kbd "M-L") 'org-toggle-link-display))
@@ -562,11 +613,11 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (add-to-list 'sml/replacer-regexp-list '("^~/projects/dh/PackageFox" ":PF:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/projects" ":PROJ:") t)
 
-(require 'octicons)
-(make-face 'octicons-mode-line)
-(set-face-attribute 'octicons-mode-line nil
-        :inherit 'mode-line
-        :inherit 'octicons)
+;; (require 'octicons)
+;; (make-face 'octicons-mode-line)
+;; (set-face-attribute 'octicons-mode-line nil
+;;         :inherit 'mode-line
+;;         :inherit 'octicons)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; guide-key setup
@@ -593,7 +644,10 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun server-shutdown ()
-  "save buffers, then shut down server"
+  "save buffers, then shut down server."
   (interactive)
   (save-some-buffers)
   (kill-emacs))
+
+(provide 'init)
+;;; init.el ends here
