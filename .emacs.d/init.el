@@ -1,11 +1,7 @@
-;;
-;; Initialize packages via Cask/pallet
-;;
+;;; package --- Summary
+;;; Commentary:
+;;; Code:
 
-;; Added by Package.el.  This must come before configurations of
-;; installed packages.  Don't delete this line.  If you don't want it,
-;; just comment it out by adding a semicolon to the start of the line.
-;; You may delete these explanatory comments.
 (package-initialize)
 
 (require 'cask "/usr/local/share/emacs/site-lisp/cask/cask.el")
@@ -16,9 +12,6 @@
 ;;
 ;; setup basic info
 ;;
-(defvar HOME (expand-file-name "~"))
-(setq HOSTNAME (system-name))
-(setq USERNAME (getenv "USER"))
 
 (setq debug-on-error t)
 
@@ -26,18 +19,15 @@
   (if (file-exists-p gls)
       (setq insert-directory-program gls)))
 
-;;(setq user-full-name "Jeff Whitmire"
-;;      user-mail-address "jeff.whitmire@phishme.com")
-
 ;;
 ;; setup load path/directories
 ;;
-(setq dotfiles-dir (file-name-directory
-        (or (buffer-file-name) load-file-name)))
+(defvar dotfiles-dir (file-name-directory
+		      (or (buffer-file-name) load-file-name)))
+(defvar init-dir (expand-file-name "init" dotfiles-dir))
+(defvar my-site-lisp-dir (expand-file-name "site-lisp" dotfiles-dir))
 
-(setq init-dir (expand-file-name "init" dotfiles-dir)
-      my-site-lisp-dir (expand-file-name "site-lisp" dotfiles-dir)
-      custom-file (expand-file-name "custom.el" dotfiles-dir))
+(setq custom-file (expand-file-name "custom.el" dotfiles-dir))
 
 (add-to-list 'load-path init-dir)
 (add-to-list 'load-path my-site-lisp-dir)
@@ -45,42 +35,26 @@
 (let ((default-directory "/usr/local/share/emacs/site-lisp/"))
   (normal-top-level-add-subdirs-to-load-path))
 
-;;
-;; init loading helper functions
-;;
-(defun require-init (feature-name)
-  (let ((feature (intern (format "%s" feature-name))))
-    (message (format ">>> Loading %s..." feature))
-    (require feature)
-    (message (format ">>> Finished loading %s" feature))))
-
-
 ;; Check if system is Darwin/Mac OS X
 (defun system-type-is-darwin ()
+  "Return true if system is darwin-based (Mac OS X)."
   (interactive)
-  "Return true if system is darwin-based (Mac OS X)"
   (string-equal system-type "darwin"))
 
 ;; Check if system is GNU/Linux
 (defun system-type-is-gnu ()
+  "Return true if system is GNU/Linux-based."
   (interactive)
-  "Return true if system is GNU/Linux-based"
   (string-equal system-type "gnu/linux"))
-
-;; Check for triage VM
-(defun system-is-triage-vm ()
-  (interactive)
-  "Return true if system is a triage virtual machine"
-  (string-equal system-name "triage.vm"))
 
 ;;
 ;; OSX specific settings
 ;;
 (when (eq system-type 'darwin) ;; mac specific
   (setq mac-command-modifier 'meta
-        mac-option-modifier 'super
-        mac-control-modifier 'control
-        ns-function-modifier 'hyper)
+	mac-option-modifier 'super
+	mac-control-modifier 'control
+	ns-function-modifier 'hyper)
   (global-set-key [kp-delete] 'delete-char)
   )
 
@@ -100,7 +74,6 @@
 
 ;; Load these instead of autoloading since they will get used
 ;; by almost everything
-(require 'cl)
 (require 'saveplace)
 (require 'ffap)
 (require 'ansi-color)
@@ -130,11 +103,6 @@
 (load custom-file)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; tramp setup
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(setq tramp-default-method "ssh")
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; term setup
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -143,7 +111,7 @@
   (global-set-key (kbd "C-c t") 'multi-term-next)
   (global-set-key (kbd "C-c T") 'multi-term-prev)
   (setq multi-term-buffer-name "term"
-        multi-term-program "/usr/local/bin/zsh"))
+	multi-term-program "/usr/local/bin/zsh"))
 
 (when (require 'term nil t) ; only if term can be loaded
   (defun term-handle-ansi-terminal-messages (message)
@@ -152,25 +120,25 @@
       (let* ((start (match-beginning 0))
        (command-code (aref message (+ start 6)))
        (argument
-        (save-match-data
+	(save-match-data
     (substring message
-         (+ start 8)
-         (string-match "\r?\n" message
-           (+ start 8))))))
+	 (+ start 8)
+	 (string-match "\r?\n" message
+	   (+ start 8))))))
   ;; Delete command from MESSAGE
   (setq message (replace-match "" t t message))
 
   (cond ((= command-code ?c)
-         (setq term-ansi-at-dir argument))
-        ((= command-code ?h)
-         (setq term-ansi-at-host argument))
-        ((= command-code ?u)
-         (setq term-ansi-at-user argument))
-        ((= command-code ?e)
-         (save-excursion
+	 (setq term-ansi-at-dir argument))
+	((= command-code ?h)
+	 (setq term-ansi-at-host argument))
+	((= command-code ?u)
+	 (setq term-ansi-at-user argument))
+	((= command-code ?e)
+	 (save-excursion
      (find-file-other-window argument)))
-        ((= command-code ?x)
-         (save-excursion
+	((= command-code ?x)
+	 (save-excursion
      (find-file argument))))))
 
     (when (and term-ansi-at-host term-ansi-at-dir term-ansi-at-user)
@@ -178,35 +146,35 @@
       (format "%s@%s:%s" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))
       (set-buffer-modified-p nil)
       (setq default-directory (if (string= term-ansi-at-host (system-name))
-          (concatenate 'string term-ansi-at-dir "/")
-        (format "/%s@%s:%s/" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))))
+	  (concatenate 'string term-ansi-at-dir "/")
+	(format "/%s@%s:%s/" term-ansi-at-user term-ansi-at-host term-ansi-at-dir))))
     message)
 
   (setq term-bind-key-alist
-        (list (cons "C-c C-c" 'term-interrupt-subjob)
-              (cons "C-p" 'previous-line)
-              (cons "C-n" 'next-line)
-              (cons "M-f" 'term-send-forward-word)
-              (cons "M-b" 'term-send-backward-word)
-              (cons "M-o" 'term-send-backspace)
-              (cons "C-c C-j" 'term-line-mode)
-              (cons "C-c C-k" 'term-char-mode)
-              (cons "M-DEL" 'term-send-backward-kill-word)
-              (cons "M-d" 'term-send-forward-kill-word)
-              (cons "M-b" 'term-send-backward-word)
-              (cons "M-f" 'term-send-forward-word)
-              (cons "C-s" 'isearch-forward)
-              (cons "C-r" 'iserach-backward)
-              (cons "C-m" 'term-send-raw)
-              (cons "M-p" 'term-send-raw-meta)
-              (cons "M-y" 'term-send-raw-meta))))
+	(list (cons "C-c C-c" 'term-interrupt-subjob)
+	      (cons "C-p" 'previous-line)
+	      (cons "C-n" 'next-line)
+	      (cons "M-f" 'term-send-forward-word)
+	      (cons "M-b" 'term-send-backward-word)
+	      (cons "M-o" 'term-send-backspace)
+	      (cons "C-c C-j" 'term-line-mode)
+	      (cons "C-c C-k" 'term-char-mode)
+	      (cons "M-DEL" 'term-send-backward-kill-word)
+	      (cons "M-d" 'term-send-forward-kill-word)
+	      (cons "M-b" 'term-send-backward-word)
+	      (cons "M-f" 'term-send-forward-word)
+	      (cons "C-s" 'isearch-forward)
+	      (cons "C-r" 'iserach-backward)
+	      (cons "C-m" 'term-send-raw)
+	      (cons "M-p" 'term-send-raw-meta)
+	      (cons "M-y" 'term-send-raw-meta))))
 
 (add-hook 'term-mode-hook
     (lambda ()
       (setq term-buffer-maximum-size 10000
-            autopair-dont-activate t
-            autopair-mode -1
-            show-trailing-whitespace nil)
+	    autopair-dont-activate t
+	    autopair-mode -1
+	    show-trailing-whitespace nil)
       (define-key term-raw-map (kbd "C-y") 'term-paste)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -260,7 +228,7 @@
 (add-hook 'helm-goto-line-before-hook 'helm-save-current-pos-to-mark-ring)
 (add-hook 'eshell-mode-hook
     #'(lambda ()
-        (define-key eshell-mode-map (kbd "M-l") 'helm-eshell-history)))
+	(define-key eshell-mode-map (kbd "M-l") 'helm-eshell-history)))
 
 (dolist ($hook '(css-mode-hook scss-mode-hook less-css-mode-hook))
   (add-hook
@@ -347,7 +315,7 @@ there's a region all lines that region covers will be duplicated."
 (defun sp-web-mode-is-code-context (id action context)
   (when (and (eq action 'insert)
        (not (or (get-text-property (point) 'part-side)
-          (get-text-property (point) 'block-side))))
+	  (get-text-property (point) 'block-side))))
     t))
 (sp-local-pair 'web-mode "<" nil :when '(sp-web-mode-is-code-context))
 
@@ -455,32 +423,32 @@ there's a region all lines that region covers will be duplicated."
       racer-rust-src-path "/Users/jeffwhitmire/src/rust/src")
 
 (add-hook 'rust-mode-hook
-          '(lambda ()
+	  '(lambda ()
 
-             ;; enable racer
-             (racer-activate)
+	     ;; enable racer
+	     (racer-activate)
 
-             ;; hook in racer with eldoc
-             (racer-turn-on-eldoc)
+	     ;; hook in racer with eldoc
+	     (racer-turn-on-eldoc)
 
-             ;; use flycheck in rust-mode
-             (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+	     ;; use flycheck in rust-mode
+	     (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
 
-             ;; use company in rust mode
-             (set (make-local-variable 'company-backends) '(company-racer))
+	     ;; use company in rust mode
+	     (set (make-local-variable 'company-backends) '(company-racer))
 
-             ;; key binding to jump to method definition
-             (local-set-key (kbd "M-.") #'racer-find-definition)
+	     ;; key binding to jump to method definition
+	     (local-set-key (kbd "M-.") #'racer-find-definition)
 
-             ;; key binding to auto complete and indent
-             (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
+	     ;; key binding to auto complete and indent
+	     (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ruby mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (add-hook 'enh-ruby-mode-hook
-          (lambda ()
-            (rvm-activate-corresponding-ruby)))
+	  (lambda ()
+	    (rvm-activate-corresponding-ruby)))
 
 (add-hook 'ruby-mode-hook 'inf-ruby-minor-mode)
 (add-hook 'after-init-hook 'inf-ruby-switch-setup)
@@ -526,7 +494,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (defadvice rspec-compile (around rspec-compile-around)
   "Use BASH shell for running specs due to ZSH issues."
   (let ((shell-file-name "/usr/local/bin/bash")
-        (default-directory (projectile-rails-root)))
+	(default-directory (projectile-rails-root)))
     (message "------------- DEBUG ------------------")
     (message "default-directory: %s" default-directory)
     (message "projectile-rails-root: %s" (projectile-rails-root))
@@ -550,17 +518,17 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 (defun jw-web-mode-hook ()
   "Set web development related variables."
   (setq web-mode-markup-indent-offset 2
-        web-mode-css-indent-offset 2
-        web-mode-code-indent-offset 2
-        web-mode-comment-style 2
-        web-mode-style-padding 1
-        web-mode-script-padding 1
-        web-mode-block-padding 0
-        web-mode-enable-auto-pairing t
-        web-mode-enable-css-colorization t
-        web-mode-enable-comment-keywords t
-        web-mode-enable-heredoc-fontification t
-        web-mode-enable-current-element-highlight t)
+	web-mode-css-indent-offset 2
+	web-mode-code-indent-offset 2
+	web-mode-comment-style 2
+	web-mode-style-padding 1
+	web-mode-script-padding 1
+	web-mode-block-padding 0
+	web-mode-enable-auto-pairing t
+	web-mode-enable-css-colorization t
+	web-mode-enable-comment-keywords t
+	web-mode-enable-heredoc-fontification t
+	web-mode-enable-current-element-highlight t)
   (local-set-key (kbd "RET") 'newline-and-indent))
 (add-hook 'web-mode-hook 'jw-web-mode-hook)
 
@@ -568,17 +536,17 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 
 (setq web-mode-extra-snippets
       '(("erb" . (("name" . ("beg" . "end"))))
-        ("php" . (("name" . ("beg" . "end"))
-                  ("name" . ("beg" . "end"))))))
+	("php" . (("name" . ("beg" . "end"))
+		  ("name" . ("beg" . "end"))))))
 
 (setq web-mode-extra-auto-pairs
       '(("erb" . (("open" "close")))
-        ("php" . (("open" "close")
-                  ("open" "close")))))
+	("php" . (("open" "close")
+		  ("open" "close")))))
 
 (setq web-mode-ac-sources-alist
       '(("css" . (ac-source-css-property))
-        ("html" . (ac-source-words-in-buffer ac-source-abbrev))))
+	("html" . (ac-source-words-in-buffer ac-source-abbrev))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; snippets
@@ -691,7 +659,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun server-shutdown ()
-  "save buffers, then shut down server."
+  "Save buffers, then shut down server."
   (interactive)
   (save-some-buffers)
   (kill-emacs))
