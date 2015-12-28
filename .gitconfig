@@ -1,6 +1,6 @@
 [user]
 	name = Jeff Whitmire
-	email = jeff@jwhitmire.com
+	email = jeff.whitmire@phishme.com
 [alias]
 	stash-unapply = !git stash show -p | git apply -R
 	a = add

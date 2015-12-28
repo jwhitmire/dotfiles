@@ -3,7 +3,7 @@
 # global gitignore
 #
 
-.byebug_hist
+.byebug_hist*
 .irb-history
 .psql_history
 
@@ -80,6 +80,11 @@ tramp
 # AUCTeX auto folder
 /auto/
 
+.cargo
+.gitkraken
+.wireshark
+.wireshark-etc
+
 ################################################################################
 # ruby related files
 ################################################################################
@@ -134,6 +139,8 @@ src
 work
 games
 Calibre*
+
+.python-eggs
 
 .gnupg
 .ssh
