@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BASE_DIR="/Users/jeffwhitmire/work/vm"
+BASE_DIR="/vm"
 MOUNTS=( "triage;/srv/appliance/dev" "license_server;/srv/license_server/dev" "home;/home/deploy" )
 
 triage_count=$( ping -c 1 triage.vm | grep icmp* | wc -l )
@@ -27,7 +27,7 @@ do
     then
         echo "Already mounted"
     else
-        sshfs triage.vm:${MOUNT_POINTS[1]} $MOUNT_DIR -ocache=yes,kernel_cache,compression=no
+        sudo mount -v -t nfs -o resvport,rw,rsize=8192,wsize=8192,proto=tcp triage.vm:${MOUNT_POINTS[1]} $MOUNT_DIR
         echo "mounted"
     fi
     echo

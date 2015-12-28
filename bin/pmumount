@@ -1,8 +1,8 @@
 #!/bin/bash
 
-for f in ~/work/vm/*
+for f in /vm/*
 do
     echo "Unmounting $f"
-    umount $f
+    sudo umount $f
 done
 
