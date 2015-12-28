@@ -29,8 +29,8 @@ zstyle ':prezto:load' pmodule \
   'directory' \
   'editor' \
   'git' \
+  'gpg' \
   'history' \
-  'homebrew' \
   'osx' \
   'rails' \
   'spectrum' \
@@ -114,6 +114,15 @@ zstyle ':prezto:module:editor' dot-expansion 'yes'
 # Auto set to 'off' on dumb terminals.
 # zstyle ':prezto:module:prompt' theme 'sorin'
 zstyle ':prezto:module:prompt' theme 'paradox'
+
+# indicate when editor is in primary keymap
+zstyle ':prezto:module:editor:info:keymap:primary' format '>>>'
+
+# indicate when editor is in alternate keymap
+zstyle ':prezto:module:editor:info:keymap:alternate' format '<<<'
+
+# indicate when editor is completing...
+zstyle ':prezto:module:editor:info:completing' format '...'
 
 #
 # Ruby
