@@ -3,49 +3,82 @@
 (source marmalade)
 (source org)
 
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; Package Management
+;;;;;;;;;;;;;;;;;;;;;;;;
 (depends-on "pallet" :git "https://github.com/rdallasgray/pallet" :ref "master")
 (depends-on "cask")
 
-;;(depends-on "ag")
-(depends-on "ac-helm")
-(depends-on "auto-complete")
-(depends-on "bundler")
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; general ui
+;;;;;;;;;;;;;;;;;;;;;;;;
 (depends-on "calmer-forest-theme")
+(depends-on "guide-key")
+(depends-on "expand-region")
+(depends-on "highlight")
+(depends-on "highlight-escape-sequences")
+(depends-on "highlight-indentation")
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; autocomplete
+;;;;;;;;;;;;;;;;;;;;;;;;
+(depends-on "ac-helm")
+(depends-on "ac-slime")
+(depends-on "auto-complete")
+(depends-on "company")
+(depends-on "company-racer")
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; org mode
+;;;;;;;;;;;;;;;;;;;;;;;;
+(depends-on "org")
+(depends-on "org-plus-contrib")
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; ruby/rails
+;;;;;;;;;;;;;;;;;;;;;;;;
+(depends-on "bundler")
 (depends-on "chruby")
 (depends-on "coffee-mode")
+(depends-on "ruby-mode")
+(depends-on "projectile")
+(depends-on "projectile-rails")
+(depends-on "robe")
+(depends-on "rspec-mode")
+;; (depends-on "ruby-additional")
+(depends-on "ruby-dev")
+(depends-on "ruby-hash-syntax")
+(depends-on "ruby-interpolation")
+(depends-on "ruby-refactor")
+(depends-on "ruby-tools")
+(depends-on "rvm")
+(depends-on "inf-ruby")
+
+;;;;;;;;;;;;;;;;;;;;;;;;
+;; rust
+;;;;;;;;;;;;;;;;;;;;;;;;
+(depends-on "rust-mode")
+(depends-on "flymake-rust")
+(depends-on "racer")
+
+
 (depends-on "dash")
 (depends-on "dash-at-point")
-;; (depends-on "ecb")
-(depends-on "expand-region")
-(depends-on "ruby-mode")
 (depends-on "exec-path-from-shell")
 (depends-on "flycheck")
 (depends-on "flycheck-color-mode-line")
+(depends-on "flycheck-rust")
 (depends-on "flyspell")
-;;(depends-on "git-blame")
 (depends-on "gitignore-mode")
-;;(depends-on "git-rebase-mode")
-;;(depends-on "git-gutter-fringe")
 (depends-on "grizzl")
-(depends-on "guide-key")
 (depends-on "helm")
 (depends-on "helm-css-scss")
 (depends-on "helm-dash")
 (depends-on "helm-projectile")
 (depends-on "helm-robe")
 (depends-on "helm-themes")
-(depends-on "highlight")
-(depends-on "highlight-escape-sequences")
-(depends-on "highlight-indentation")
 (depends-on "htmlize")
 (depends-on "httpcode")
-;; (depends-on "idle-highlight")
-;; (depends-on "ido-mode")
-;; (depends-on "idomenu")
-(depends-on "inf-ruby")
-;; (depends-on "ipython")
-;;(depends-on "js2-mode")
-;; (depends-on "js2-refactor")
 (depends-on "json-mode")
 (depends-on "json-reformat")
 (depends-on "magit")
@@ -55,41 +88,16 @@
 (depends-on "multiple-cursors")
 (depends-on "multi-term")
 
-;;(depends-on "org")
-(depends-on "org-plus-contrib")
-;;(depends-on "org-assoc-tags")
-;;(depends-on "org-buffers")
-;;(depends-on "org-extension")
-;;(depends-on "org-impress-js")
-;;(depends-on "org-mode")
 
-(depends-on "pretty-lambdada")
-(depends-on "projectile")
-(depends-on "projectile-rails")
-;; (depends-on "python-mode")
-;; (depends-on "rainbow-delimiters")
 (depends-on "rainbow-mode")
 (depends-on "redo+")
-;; (depends-on "regex-tool")
-(depends-on "robe")
-(depends-on "rspec-mode")
-;; (depends-on "ruby-additional")
-(depends-on "ruby-dev")
-(depends-on "ruby-hash-syntax")
-(depends-on "ruby-interpolation")
-(depends-on "ruby-refactor")
-;;(depends-on "ruby-test-mode")
-(depends-on "ruby-tools")
-(depends-on "rvm")
 (depends-on "slime")
-(depends-on "ac-slime")
 (depends-on "smart-mode-line")
 (depends-on "smartparens")
 (depends-on "splitter")
 (depends-on "stripe-buffer")
 (depends-on "syslog-mode")
 (depends-on "unbound")
-;;(depends-on "undo-tree")
 (depends-on "web-mode")
 (depends-on "yaml-mode")
 (depends-on "yasnippet")

@@ -340,6 +340,7 @@ there's a region all lines that region covers will be duplicated."
 
 (require 'smartparens-config)
 (require 'smartparens-ruby)
+(require 'smartparens-rust)
 (smartparens-global-mode)
 (show-smartparens-global-mode t)
 
@@ -418,6 +419,16 @@ there's a region all lines that region covers will be duplicated."
     '(define-key magit-status-mode-map (kbd "q") 'magit-quit-session)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; company mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(global-company-mode)
+
+(setq company-idle-delay 0.2
+      company-minimum-prefix-length 1
+      company-tooltip-align-annotations t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; lisp mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -428,6 +439,41 @@ there's a region all lines that region covers will be duplicated."
 
 ;;(setq inferior-lisp-program "/usr/local/bin/sbcl")
 (setq slime-contribs '(slime-fancy))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; rust mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'rust-mode)
+(require 'racer)
+(require 'flymake-rust)
+
+(add-to-list 'auto-mode-alist '("\\.rs\\'" . rust-mode))
+
+(add-hook 'rust-mode-hook 'flymake-rust-load)
+
+(setq racer-cmd "/Users/jeffwhitmire/.cargo/bin/racer"
+      racer-rust-src-path "/Users/jeffwhitmire/src/rust/src")
+
+(add-hook 'rust-mode-hook
+          '(lambda ()
+
+             ;; enable racer
+             (racer-activate)
+
+             ;; hook in racer with eldoc
+             (racer-turn-on-eldoc)
+
+             ;; use flycheck in rust-mode
+             (add-hook 'flycheck-mode-hook #'flycheck-rust-setup)
+
+             ;; use company in rust mode
+             (set (make-local-variable 'company-backends) '(company-racer))
+
+             ;; key binding to jump to method definition
+             (local-set-key (kbd "M-.") #'racer-find-definition)
+
+             ;; key binding to auto complete and indent
+             (local-set-key (kbd "TAB") #'racer-complete-or-indent)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; ruby mode
@@ -566,6 +612,7 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
   "Kill all open buffers."
   (interactive)
   (mapc 'kill-buffer (buffer-list)))
+(global-set-key (kbd "C-x K") 'kill-all-buffers)
 
 (defun kill-other-buffers ()
   "Kill all buffers except the current one."
@@ -608,9 +655,9 @@ FILE, then it shall return the [sic] of FILE in the current directory, suitable 
 
 (add-to-list 'sml/replacer-regexp-list '("^~/work/vm/triage" ":Triage:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/work/vm/mothership" ":MS:") t)
-(add-to-list 'sml/replacer-regexp-list '("^~/work/vm/" ":VM:") t)
-(add-to-list 'sml/replacer-regexp-list '("^~/projects/armstrong/armstrong" ":ARM:") t)
-(add-to-list 'sml/replacer-regexp-list '("^~/projects/dh/PackageFox" ":PF:") t)
+;(add-to-list 'sml/replacer-regexp-list '("^~/work/vm/" ":VM:") t)
+;(add-to-list 'sml/replacer-regexp-list '("^~/projects/armstrong/armstrong" ":ARM:") t)
+;(add-to-list 'sml/replacer-regexp-list '("^~/projects/dh/PackageFox" ":PF:") t)
 (add-to-list 'sml/replacer-regexp-list '("^~/projects" ":PROJ:") t)
 
 ;; (require 'octicons)
