@@ -43,6 +43,7 @@ Public
 ################################################################################
 *~
 \#*\#
+/.emacs.d
 /.emacs.desktop
 /.emacs.desktop.lock
 *.elc
@@ -131,6 +132,7 @@ tramp
 .wegorc
 .tmuxinator
 .htoprc
+.zcompcache
 
 dev
 etc
