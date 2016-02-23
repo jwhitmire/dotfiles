@@ -57,6 +57,7 @@ recentf
 savehist
 tramp
 .slime
+.slime-history.eld
 .\#*
 
 .cask
@@ -168,4 +169,8 @@ chef-solo
 .vagrant.d
 install.sh
 archive
+
+.mix
+.hex
+.docker
 
