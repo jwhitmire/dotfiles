@@ -59,6 +59,7 @@ tramp
 .slime
 .slime-history.eld
 .\#*
+emacs.d.orig
 
 .cask
 
@@ -126,6 +127,7 @@ tramp
 .cups
 .backup
 .apdisk
+.influx_history
 ._.*
 .psql_history
 .guard_history
