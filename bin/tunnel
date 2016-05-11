@@ -10,7 +10,7 @@ tunnels=(
 )
 
 export SUDO_PROMPT='Your workstation password: '
-dest="tunnel@173.247.96.8"
+dest="tunnel@git.pmops.net"
 
 function create_interface()
 {
