@@ -35,10 +35,6 @@ values."
      emacs-lisp
      git
      html
-     (jabber :variables
-             jabber-account-list '(("jwhitmire@jwhitmire.xmpp.slack.com"
-                                    (:password . "jwhitmire.gwtbqtpSyEHELQA5pRgl")
-                                    (:connection-type . ssl))))
      (javascript :variables
                  js2-basic-offset 2
                  js-indent-level 2)
@@ -62,6 +58,15 @@ values."
                       version-control-diff-tool 'git-gutter
                       version-control-global-margin t)
      yaml
+
+     ;; private layers
+     (slack :variables
+            slack-enable-emoji t
+            slack-room-subscription '(general _triage_backchannel _triage_dev)
+            slack-client-id "2169419800.22766306931"
+            slack-user-name "jwhitmire"
+            slack-client-secret "4e0683fb632e2b828b70a51273851bbe"
+            slack-token "xoxp-2169419800-2169419802-3418144936-ea2f55")
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -233,7 +238,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers nil
+   dotspacemacs-line-numbers t
    ;; If non-nil smartparens-strict-mode will be enabled in programming modes.
    ;; (default nil)
    dotspacemacs-smartparens-strict-mode nil
@@ -284,12 +289,27 @@ layers configuration. You are free to put any user code."
   (global-set-key (kbd "M-C") 'kill-region)
   (global-set-key (kbd "M-v") 'yank)
 
-  ;; turn on line numbers
-  (global-linum-mode)
+  ;; set menu-bar on
   (menu-bar-mode t)
 
   ;; adjust fringe widths
   (setq-default left-fringe-width 20)
+
+  ;; lock the height of the linum face
+  (eval-after-load "linum"
+    '(set-face-attribute 'linum nil :height 120))
+
+  ;; Adjust the window margin as the scale changes
+  (defun linum-update-window-scale-fix (win)
+    "fix linum for scaled text"
+    (set-window-margins win
+                        (ceiling (* (if (boundp 'text-scale-mode-step)
+                                        (expt text-scale-mode-step
+                                              text-scale-mode-amount) 1)
+                                    (if (car (window-margins))
+                                        (car (window-margins)) 1)
+                                    ))))
+  (advice-add #'linum-update-window :after #'linum-update-window-scale-fix)
 
   ;; highlight trailing whitespace
   (setq show-trailing-whitespace t)
@@ -303,10 +323,60 @@ layers configuration. You are free to put any user code."
   ;; Lazy people like 'y' over 'yes'
   (defalias 'yes-or-no-p 'y-or-n-p)
 
-  ;; Set up slack/jabber
-  (setq ssl-program-name "gnutls-cli"
-        ssl-program-arguments '("--insecure" "-p" service host)
-        ssl-certificate-verification-policy 1)
+  ;; set up sql mode
+  (setq sql-connection-alist
+        '((appliance (sql-product 'postgres)
+                     (sql-port 5432)
+                     (sql-server "triage.vm")
+                     (sql-user "triage")
+                     (sql-database "triage"))
+          (license-server (sql-product 'postgres)
+                          (sql-port 5432)
+                          (sql-server "triage.vm")
+                          (sql-server "triage")
+                          (sql-database "license_server"))))
+
+  (defun find-sql-product (connection)
+    "Pull the sql-product value from 'sql-connection-alist for the given connection"
+    (cadr
+     (assoc 'sql-product
+            (cdr (assoc connection sql-connection-alist)))))
+
+  (defun my-sql-connect (connection)
+    "Connect to a databse connection from 'sql-connection-alist"
+    ;; pull the sql-product from the alist and set that first
+    (setq sql-product find-sql-product(connection))
+    (sql-connect connection))
+
+  (defun triage-db/appliance ()
+    (interactive)
+    (my-sql-connect 'appliance))
+
+  (defun triage-db/license-server ()
+    (interactive)
+    (my-sql-connect 'license-server))
+
+  (defvar my-sql-mapping
+    '(("appliance" triage-db/appliance)
+      ("license-server" triage-db/license-server))
+    "alist of databases to connect to via helm")
+
+  (defun my-sql-connect-server (func)
+    "Connect to the proper server from the connections list"
+    (interactive
+     (helm-comp-read "Select database: " my-sql-mapping))
+    (funcall func))
+
+  (add-hook 'sql-interactive-mode-hook
+            (lambda ()
+              (toggle-truncate-lines t)
+              (setq-local show-trailing-whitespace nil)
+              (auto-complete-mode t)))
+
+  (add-hook 'sql-mode-hook
+            (lambda ()
+              (setq-local ac-ignore-case t)
+              (auto-complete-mode)))
 
   )
 
@@ -317,6 +387,9 @@ layers configuration. You are free to put any user code."
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
+ '(custom-safe-themes
+   (quote
+    ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
  '(global-whitespace-mode t)
  '(whitespace-style
    (quote
