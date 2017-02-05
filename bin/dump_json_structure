@@ -1,0 +1,75 @@
+#!/usr/bin/env ruby
+
+require 'json'
+
+def max_level
+  if ARGV[1]
+    ARGV[1].to_i
+  else
+    3
+  end
+end
+
+def proceed(level)
+  level <= max_level
+end
+
+def usage
+  puts
+  puts "Usage: #{$0} <jsonfile>"
+  puts
+  exit 0
+end
+
+def error_quit(message)
+  puts
+  puts "Requested file does not exist"
+  puts
+  exit 0
+end
+
+def dump_structure(json, base='root', level=1)
+  case json
+  when Array
+    puts "#{'-' * level} #{base} (ARR - #{json.length}) : #{json.to_json.size}"
+    dump_array(json, base, level+1)
+  when Hash
+    puts "#{'-' * level} #{base} (HASH - #{json.length}) : #{json.to_json.size}"
+    dump_hash(json, base, level+1)
+  end
+end
+
+def dump_hash(json, base, level=1)
+  json.keys.each do |key|
+    new_base = "#{base} / #{key}"
+    puts "#{'-' * level} #{new_base} : #{json[key].to_json.size}"
+    dump_structure(json[key], new_base, level) if proceed(level)
+  end
+end
+
+def dump_array(json, base, level=1)
+  json.each_with_index do |key, ndx|
+    new_base = "#{base} / #{ndx}"
+    puts "#{'-' * level} #{new_base} : #{key.to_json.size}"
+    dump_structure(json[ndx], new_base, level) if proceed(level)
+  end
+end
+
+if ARGV.length == 0
+  usage
+end
+
+target_file = ARGV[0]
+
+unless File.exist?(target_file)
+  error_quit "Requested file does not exist"
+end
+
+raw_data = File.read(target_file)
+json_hash = JSON.parse(raw_data)
+
+puts "Total size: #{raw_data.size}"
+puts "Total json size: #{json_hash.to_json.size}"
+puts
+
+dump_structure(json_hash)
