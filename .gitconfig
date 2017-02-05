@@ -1,0 +1,105 @@
+[user]
+	name = Jeff Whitmire
+	email = jeff.whitmire@stitchfix.com
+[alias]
+	stash-unapply = !git stash show -p | git apply -R
+	a = add
+	aa = add --all
+	ai = add --interactive
+	amend = commit --amend -C HEAD
+	b = branch
+	c = commit -m
+	ca = commit --amend
+	changes = diff --name-status -r
+	ci = commit
+	co = checkout
+	cp = cherry-pick
+	current-branch = !git symbolic-ref -q HEAD | sed -e 's|^refs/heads/||'
+	d = diff
+	dc = diff --cached
+	div = divergence
+	ds = diff --staged
+	fa = fetch --all
+	ff = merge --ff-only
+	gn = goodness
+	gnc = goodness --cached
+	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	h = !git head
+	head = !git l -1
+	hp = "!show_git_head"
+	ignored = !git ls-files -v | grep "^[[:lower:]]"
+	irb = rebase --interactive
+	l = log --graph --pretty=format':%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset'
+	la = !git l --all
+	latest = for-each-ref --sort=-committerdate --format='%(committerdate:short) %(refname:short)'
+	lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	lignore = update-index --assume-unchanged
+	lol = log --pretty=oneline --abbrev-commit --graph --decorate
+	m = merge
+	noff = merge --no-ff
+	merged = branch --merged
+	out = log origin..HEAD
+	pl = pull
+	plre = pull --rebase
+	ps = push
+	qpl = log --pretty=\"%Cblue%h%Creset %Cgreen[%cr]%Creset %s\" origin/production..origin/master
+	r = !git l -30
+	ra = !git r --all
+	rb = rebase
+	s = !git fetch && git status
+	sm = submodule
+	snapshot = !git stash save "snapshot: $(date)" && git stash apply "stash@{0}"
+	ss = local-to-remote-status
+	st = "!echo ; echo working as `git config user.name` ; echo ; git status -sb"
+	staged = diff --cached
+	track = !git-track
+	unadd = reset --soft HEAD^
+	unlignore = update-index --no-assume-unchanged
+	unstaged = diff
+	wd = diff --color-words
+	wds = diff --color-words --staged
+[apply]
+	whitespace = nowarn
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	interactive = auto
+	ui = always
+[color "branch"]
+	current = yellow reverse
+	local = yellow
+	remote = green
+[color "diff"]
+	meta = yellow bold
+	frag = magenta bold
+	old = red bold
+	new = green bold
+[color "status"]
+	added = yellow
+	changed = green
+	untracked = cyan
+[format]
+	numbered = auto
+	pretty = %Cblue%h%Creset %Cgreen[%cr]%Creset (%an) %s
+[core]
+	excludesfile = /Users/jeffwhitmire/.gitignore
+	autocrlf = false
+	safecrlf = true
+	quotepath = false
+	editor = vim
+[mirror]
+	summary = true
+[push]
+	default = simple
+[branch]
+	autosetupmerge = true
+	autosetuprebase = always
+[difftool]
+	prompt = false
+[rerere]
+	enabled = 1
+[merge]
+	stat = true
+[pull]
+	rebase = true
