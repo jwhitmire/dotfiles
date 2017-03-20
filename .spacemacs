@@ -395,6 +395,33 @@ you should place your code here."
   ;; Lazy people like 'y' over 'yes'
   (defalias 'yes-or-no-p 'y-or-n-p)
 
+  ;; org mode customizations.  This is necessary so the ELPA org doesn't conflict with the one shipped with emacs
+  (with-eval-after-load 'org
+    (lambda()
+      (require 'ob-emacs-lisp)
+      (require 'ob-sql)
+      (require 'ob-shell)
+      (require 'ob-org)
+      (require 'ob-css)
+      (require 'ob-js)
+      (require 'ob-http)
+      (setq org-export-babel-evaluate nil)
+      (setq org-startup-indented 1)
+      ;; increase imenu depth to third level headings
+      (setq org-imenu-depth 3)
+      ;; set sensible default for dot files
+      (add-to-list 'org-src-lang-modes '("dot" . graphviz-dot))
+      ;; update images from code blocks
+      (add-hook 'org-babel-after-execute-hook 'org-display-inline-images)
+      (setq org-src-fontify-natively t)
+      (setq org-src-tab-acts-natively t)
+      (setq org-confirm-bable-evaluate nil)
+      ))
+  (with-eval-after-load 'org-agenda
+    (require 'org-projectile)
+    (push (org-projectile:todo-files) org-agenda-files)
+    )
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -407,12 +434,24 @@ you should place your code here."
  '(custom-safe-themes
    (quote
     ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+ '(org-todo-keywords
+   (quote
+    ((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "DONE(d)" "CANCELED(c)"))))
  '(package-selected-packages
    (quote
-    (magithub sql-indent yaml-mode xterm-color web-mode web-beautify tagedit smeargle slime-company slime slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient rbenv pug-mode projectile-rails rake inflections pbcopy osx-trash osx-dictionary orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download ob-http multi-term mmm-mode minitest markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd less-css-mode launchctl json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang htmlize helm-gitignore helm-dash helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck fish-mode feature-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help emmet-mode diff-hl dash-at-point company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-quickhelp pos-tip company common-lisp-snippets coffee-mode chruby bundler inf-ruby auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme))))
+    (pandoc-mode ox-pandoc ht ox-twbs ox-reveal ox-gfm ob-elixir flycheck-mix alchemist elixir-mode magithub sql-indent yaml-mode xterm-color web-mode web-beautify tagedit smeargle slime-company slime slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient rbenv pug-mode projectile-rails rake inflections pbcopy osx-trash osx-dictionary orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download ob-http multi-term mmm-mode minitest markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd less-css-mode launchctl json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang htmlize helm-gitignore helm-dash helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck fish-mode feature-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help emmet-mode diff-hl dash-at-point company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-quickhelp pos-tip company common-lisp-snippets coffee-mode chruby bundler inf-ruby auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+ '(table-html-th-rows 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(org-block ((t (:background "light blue" :foreground "#655370"))))
+ '(org-block-begin-line ((t (:background "#ddd8eb" :foreground "#9380b2" :family ""))))
+ '(org-document-title ((t (:inherit bold :foreground "#6c3163" :underline nil :height 1.2))))
+ '(org-drawer ((t (:foreground "Blue1"))))
+ '(org-level-1 ((t (:inherit bold :foreground "#3a81c3" :height 1.1))))
+ '(org-level-2 ((t (:inherit bold :foreground "#2d9574" :height 1.0))))
+ '(org-level-3 ((t (:foreground "#67b11d" :weight normal))))
+ '(org-meta-line ((t (:foreground "#da8b55" :slant italic))))
+ '(org-quote ((t (:inherit org-block :slant italic)))))
