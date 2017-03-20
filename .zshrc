@@ -11,8 +11,7 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
-alias gst='git status'
-compdef _git gst=git-status
+PATH=~/bin:$PATH
 
 unalias run-help
 autoload run-help
