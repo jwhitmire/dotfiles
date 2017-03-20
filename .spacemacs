@@ -31,6 +31,11 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     (version-control :variables
+                      version-control-diff-tool 'diff-hl
+                      version-control-global-margin t)
+
+     elixir
      sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -52,7 +57,14 @@ values."
                  js2-basic-offset 2
                  js-indent-level 2)
      markdown
-     org
+
+     (org :variables
+          org-enable-github-support t
+          org-enable-bootstrap-support t
+          org-enable-reveal-js-support t
+          org-projectile-file "TODO.org")
+     pandoc
+
      osx
      restclient
      (ruby :variables
@@ -67,9 +79,6 @@ values."
      spell-checking
      shell-scripts
      syntax-checking
-     (version-control :variables
-                      version-control-diff-tool 'git-gutter
-                      version-control-global-margin t)
      yaml
      )
    ;; List of additional packages that will be installed without being
@@ -276,7 +285,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'origami
+   dotspacemacs-line-numbers 'relative
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -347,12 +356,21 @@ you should place your code here."
   ;; set menu-bar on
   (menu-bar-mode t)
 
-  ;; adjust fringe widths
-  (setq-default left-fringe-width 20)
+  ;; setup linenum to work well with gutter fringe
+  (progn
+    (when (eq dotspacemacs-line-numbers 'relative)
+      (add-hook 'prog-mode-hook 'linum-relative-mode)
+      (add-hook 'text-mode-hook 'linum-relative-mode))
+    (setq-default lineum-format "%4d \u2502"
+                  lineum-relative-format "%4s \u2502"))
+  (progn
+    ;; gutter faces
+    (set-face-attribute 'git-gutter:added nil :background nil :foreground "green")
+    (set-face-attribute 'git-gutter:deleted nil :background nil :foreground "red")
+    (set-face-attribute 'git-gutter:modified nil :background nil :foreground "blue")
 
-  ;; lock the height of the linum face
-  (eval-after-load "linum"
-    '(set-face-attribute 'linum nil :height 120))
+    (setq-default git-gutter:modified-sign "!"))
+
 
   ;; Adjust the window margin as the scale changes
   (defun linum-update-window-scale-fix (win)
