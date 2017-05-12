@@ -1,83 +1,164 @@
-* Surburbia
-** 2 oz bourbon
-** 1 oz blood orange juice
-** 1/2 oz simple syrup
-** 1 oz Campari
+#+TITLE Shadowwood Speakeasy Cocktails
+#+TAGS: bourbon(b) rye(r) gin(g) aquavit(a) vodka(v) scotch(s) \n sour negroni compari
+* Surburbia                                                         :bourbon:
+** Ingredients
+*** 2 oz bourbon
+*** 1 oz blood orange juice
+*** 1/2 oz simple syrup
+*** 1 oz Campari
+** Instructions
 Shake the bourbon, blood orange, and simple syrup.  Then float the Campari on top in the glass
-* Old Fashioned
-** sugar cube
-** 5 dashes angostura
-** soda water
-** 2 oz bourbon/rye
+* Old Fashioned                                                         :rye:
+** Ingredients
+*** sugar cube
+*** 5 dashes angostura
+*** soda water
+*** 2 oz bourbon/rye
+** Instructions
 Muddle sugar, bitters, soda water to make paste, then top with rye
-* Manhattan
-** 3 dashes angostura
-** 3 dashes peychaud's
-** 1/2 oz sweet vermouth
-** 2 oz rye
-* Tom Collins
-** 1/2 oz simple syrup
-** 1/2 oz lemon juice
-** 2 oz gin
-** soda water
-* Vesper
-** 3/4 oz vodka
-** 2 oz gin
-** 1/2 oz lillet blonde
-* Negroni
-** 1.5 oz gin
-** 1 oz sweet vermouth
-** 1 oz Compari
-* Negroni Flip
-** 1.5 oz gin
-** 1 oz sweet vermouth
-** 1 oz compari
-** 1/2 oz simple syrup
-** 1 whole egg
-* Boulevardier
-** 1.5 oz scotch
-** 1 oz sweet vermouth (Punte Mes)
-** 1 oz Campari
-* 866
-** 1.5 oz aquavit
-** 1 oz Campari
-** 1 oz pink grapefruit juice
-* White Negroni
-** 1.5 oz gin
-** 1 oz Cocchi Americano
-** 1 oz dry vermouth
-* Bourbon Smash
-** 3 oz orange juice
-** 2 oz bourbon
-** 1 oz cointreau
-** 1 tbs jam
-* Corpse Reviver #2
-** 1 oz gin
-** 1 oz lillet blanc
-** 1 oz lemon juice
-** 1 oz cointreau
-** absinthe rinse
-* Remember the Maine
-** 2 oz rye
-** 3/4 oz sweet vermouth
-** 2 tsp cheery heering
-** 1/2 tsp absinthe
-* Blood and Sand
-** 3/4 oz scotch
-** 3/4 oz cherry heering
-** 3/4 oz orange juice
-** 3/4 oz sweet vermouth
-* Brooklyn
-* Aviation
-* Bronx
-** 2 oz gin
-** 1/4 oz sweet vermouth
-** 1/4 oz dry vermouth
-** 1 oz orange juice
-** dash orange bitters
-* Jungle Bird
-** 1.5 oz blackstrap rum
-** 3/4 oz Campari
-** 1/2 oz lime juice
-** 1/2 oz simple syrup
-** 1.5 oz pineapple juice
+* Old Fashioned (Cocktailing podcast)                                   :rye:
+** Ingredients
+*** teaspoon brown sugar
+*** 2 dashes bitters
+*** 1/2 oz Rittenhouse rye, stir 20 seconds, repeat 3 more times
+*** Garnish with an orange peel
+** Instructions
+Muddle the bitters and sugar, then build with the rye, ice, stirring till done
+* Manhattan                                                             :rye:
+** Ingredients
+*** 3 dashes angostura
+*** 3 dashes peychaud's
+*** 1/2 oz sweet vermouth
+*** 2 oz rye
+* Tom Collins                                                      :gin:sour:
+** Ingredients
+*** 1/2 oz simple syrup
+*** 1/2 oz lemon juice
+*** 2 oz gin
+*** soda water
+* Vesper                                                          :vodka:gin:
+** Ingredients
+*** 3/4 oz vodka
+*** 2 oz gin
+*** 1/2 oz lillet blonde
+* Negroni                                               :gin:compari:negroni:
+** Ingredients
+*** 1.5 oz gin
+*** 1 oz sweet vermouth
+*** 1 oz Compari
+* Negroni Flip                                          :gin:compari:negroni:
+** Ingredients
+*** 1.5 oz gin
+*** 1 oz sweet vermouth
+*** 1 oz compari
+*** 1/2 oz simple syrup
+*** 1 whole egg
+* Boulevardier                                       :scotch:compari:negroni:
+** Ingredients
+*** 1.5 oz scotch
+*** 1 oz sweet vermouth (Punte Mes)
+*** 1 oz Campari
+* 866                                               :aquavit:compari:negroni:
+** Ingredients
+*** 1.5 oz aquavit
+*** 1 oz Campari
+*** 1 oz pink grapefruit juice
+* White Negroni                                                 :gin:negroni:
+** Ingredients
+*** 1.5 oz gin
+*** 1 oz Cocchi Americano
+*** 1 oz dry vermouth
+* Bourbon Smash                                                     :bourbon:
+** Ingredients
+*** 3 oz orange juice
+*** 2 oz bourbon
+*** 1 oz cointreau
+*** 1 tbs jam
+* Corpse Reviver #2                                                     :gin:
+** Ingredients
+*** 1 oz gin
+*** 1 oz lillet blanc
+*** 1 oz lemon juice
+*** 1 oz cointreau
+*** absinthe rinse
+* Remember the Maine                                                    :rye:
+** Ingredients
+*** 2 oz rye
+*** 3/4 oz sweet vermouth
+*** 2 tsp cheery heering
+*** 1/2 tsp absinthe
+* Blood and Sand                                                     :scotch:
+** Ingredients
+*** 3/4 oz scotch
+*** 3/4 oz cherry heering
+*** 3/4 oz orange juice
+*** 3/4 oz sweet vermouth
+* Brooklyn                                                              :gin:
+* Aviation                                                              :gin:
+* Bronx                                                                 :gin:
+** Ingredients
+*** 2 oz gin
+*** 1/4 oz sweet vermouth
+*** 1/4 oz dry vermouth
+*** 1 oz orange juice
+*** dash orange bitters
+* Jungle Bird                                              :rum:compari:tiki:
+** Ingredients
+*** 1.5 oz blackstrap rum
+*** 3/4 oz Campari
+*** 1/2 oz lime juice
+*** 1/2 oz simple syrup
+*** 1.5 oz pineapple juice
+* Benjamin Barker Daiquiri                                         :rum:sour:
+** Ingredients
+*** 1/2 oz compari
+*** 3/4 oz lime juice
+*** 1/2 oz demerara syrup
+*** 2 oz dark rum (Kraken)
+*** 2 dashes absinthe
+* Dark Side Daiquiri                                               :rum:sour:
+** Ingredients
+*** 1 oz lime juice
+*** 1 oz demerara syrup
+*** 2 oz dark rum
+* Silver Bulleit                                                    :bourbon:
+** Ingredients
+*** 1/2 oz lemon juice
+*** 1/2 oz simple syrup
+*** 1 oz velvet falernum
+*** 2 oz bourbon (Bulleit)
+*** 1 egg white
+*** 2 dashes old fashioned bitters
+*** 2 dashes orange bitters
+* All Betts are Off                                                  :mezcal:
+** Ingredients
+*** 1 1/2 oz mezcal
+*** 3/4 oz dry vermouth (Dolin Blanc)
+*** 3/4 oz yellow chartreuse
+*** 2 dashes grapefruit bitters
+** Instructions
+Combine and stir until well chilled.  Strain into cocktail glass, garnish with grapefruit twist
+* Potentials
+** Bitter Coat
+*** Ingredients
+**** 2 oz Cachaca
+**** 3/4 oz lemon juice
+**** 1/2 oz simple syrup
+**** 1/2 oz Aperol
+*** Instructions
+Combine all but Aperol and shake.  Pour into glass, add crushed ice, add Aperol float.
+** Yellow Lilly
+*** Ingredients
+**** 2 1/4 oz Cachaca
+**** 3/4 oz yellow chartreuse
+*** Instructions
+Combine in glass and stir, strain into coup and garnish with olive
+** Armadillo Sour
+*** Ingredients
+**** 1 oz blanco tequila
+**** 1 oz amaretto
+**** 1/2 oz lemon juice
+**** 1 egg white
+**** 2 dashes mayan bitters (try aztec chocolate)
+*** Instructions
+Garnish with orange twist and a barspoon of creme de cacao

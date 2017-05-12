@@ -1,0 +1,250 @@
+* Legal Information
+** 3 types of guests who cannot be served
+*** underage
+*** third-party (attempting to buy for underaged)
+*** visibly intoxicated
+** Liability laws
+*** Common negligence
+**** Not specific to alcohol sales, but can be applied to illegal alcohol sales
+**** sets standard for a reasonable person
+**** exists in all jurisdictions
+**** based on prior court cases
+*** Dram Shop liability
+**** Specific to alcohol sales
+**** Applies only to licensee and employees
+**** explains expectations for preventing illegal sales
+**** may set monetary limits for financial judgments in lawsuits
+**** Exists in some but not all jurisdictions
+** Consequences
+*** Server
+**** Personally responsible for any penalties assessed for serving illegal alcohol
+**** Possible penalties
+***** fines
+***** arrest
+***** community service
+***** financial judgments
+***** loss of server permit
+***** loss of job
+***** loss of income
+*** Establishment
+**** Responsible for penalties assessed against the establishment, but not the server
+**** Possible penalties
+***** fines
+***** license suspension
+***** license revocation
+***** loss of income
+** Reasonable Efforts
+*** You are expected to take any and all reasonable efforts appropriate to the situation.
+*** Examples
+**** Check id
+**** Get trained on responsible alcohol service
+**** suggest food
+**** monitor guests
+**** refuse service
+**** ask questions
+**** call police
+**** call a cab
+**** suggest non-alcoholic drinks
+**** post signs
+*** Technique for checking ID
+**** Commonly accepted IDs
+***** Driver's license
+***** state/jurisdiction ID card
+***** military ID
+***** passport
+**** Unacceptable
+***** expired ID of any kind
+***** student ID
+***** Green card (alien registration card)
+**** Steps for checking ID
+***** Verify information
+****** Issuing authority
+****** seal/hologram
+****** signature
+****** expiration
+****** issue date
+****** birth date
+****** Possibly get an ID checking guide for verifying IDs
+***** Check for alterations
+****** Always ask the guest to take the ID out of their wallet and hold it in your hands.  The reverse side of a fake ID is often blank, or different from a valid ID.
+****** mismatched type
+****** cut, torn, frayed lamination
+****** unusual/missing information (eye color doesn't match pic, etc)
+****** size variations
+***** Establish ownership
+****** Ask questions that only the ID owner would know.
+******* What year did you graduate from high school?
+******* What's your address?
+******* You don't need to know the answers, just look for hesitation or suspicious behavior
+****** Ask for a second form of ID if you doubt the first one
+**** Underage warning signs
+***** Nervous, moves around frequently
+***** States he is never carded because he is a friend of an employee
+***** Is always in the restroom when the group orders
+***** Orders unusual drinks
+***** Comes to the bar to order drinks for a table
+***** Gets upset when asked for ID
+** Blood Alcohol Content
+*** NY State limit: 0.08
+*** It is always illegal to serve alcohol to a visibly intoxicated guest, regardless of whether they are driving
+** Required documentation if an incident occurs
+*** Alcohol Incident Report Log - available from TIPS - $30.  Has all the required forms/logs
+*** Incident Report
+**** When
+***** Anytime you have to cut off a guest
+***** Any incident that involves the possibility of or actual violence
+***** Anytime you have to call for for assistance
+***** Any case where you refuse service
+**** What
+***** Name/description of guest involved
+***** Date/time of incident
+***** Description of the incident
+***** Reasonable efforts and intervention strategies used
+***** Witnesses to incident
+***** Employees/managers on duty
+**** How
+***** Make an entry every day, even if it just says "no problems today"
+***** Use a bound book so forms can be easily added/replaced
+***** Have the employees involved file the report so it is the first hand account
+***** Review the logs periodically to detect trends, learn strategies used by other employees
+** NY-Related Alcohol laws
+*** Legal age to sell alcohol: 18
+*** Legal age to consume/purchase alcohol: 21
+*** DUI/DWI legal limit: .08
+*** Does NY regulate server training? voluntary Alcohol Awareness Training Program (ATAP)
+*** Legal hours for sale in NY?
+**** On Premise: All counties except the 5 boroughs of NYC may write their own closing hours.
+**** Establishments in NYC must abide by:
+***** Sunday - 4am - 10am
+***** Any other day: 4am - 8am
+**** http://www.sla.ny.gov/provisions-for-county-closing-hours
+**** Off Premise: varies by county.  See above link for references for your county.
+*** Does NY authorize me to confiscate IDs from guests? - Licensees are not authorized to confiscate fake IDs.  They should refuse sale and notify authorities.
+*** Does NY have Dram Shop laws? Yes
+* Alcohol Information
+** Behavioral cues for visibly intoxicated (in order)
+*** lowered inhibitions
+**** Signs
+***** mood swings
+***** over-confidence
+***** boisterousness or extreme loudness
+***** risk-taking or out-of-character displays
+**** Can be misleading, could be natural personality
+**** Keep a close eye, but look for other signs before taking action.
+*** impaired judgment
+**** Signs - doing things they would not normally do, or inappropriate behavior
+***** foul language
+***** annoying other people
+**** Again, could be normal personality, but should raise more concern.  Should gather more info before serving any more alcohol to that guest.
+*** slowed reactions
+**** signs
+***** glassy, unfocused eyes
+***** slurred speech
+***** very slow speech or movement
+***** forgetfulness of what they are talking about
+**** These are almost never part of normal behavior.  If you see this, you are likely done serving them alcohol.
+*** loss of coordination
+**** Signs
+***** stumbling or swaying
+***** drops belongings
+***** having trouble sitting on stool or chair
+***** falling asleep at the bar
+**** Needs immediate help.  Lend assistance.
+*** Tolerance can hide behavioral cues, but that doesn't imply their BAC is below the legal limit.
+** Intoxication rate factors
+*** Physical size - smaller people are more quickly affected by alcohol than larger people
+**** body fat is the exception to the rule.  Body fat does not absorb alcohol, so only lean muscle mass applies to the size factor.
+*** Gender - women tend to be affected more quickly than men.  They typically are smaller than men with a higher pct of body fat which results in being more sensitive to alcohol
+*** Rate of consumption - A person drinking fast is affected quicker than a person drinking slowly.
+*** Strength of drink: the higher the percentage of pure alcohol, the quicker you will be affected.  Type doesn't matter, strength does.
+**** Each of the following contains about 1/2 oz of pure alcohol:
+***** 1 oz of 100-proof liquor
+***** 12 oz of beer
+***** 5 oz of wine
+**** Mixers can affect the absorption rate of alcohol.  Absorption from fastest to slowest:
+***** straight shot of liquor
+***** carbonated mixer
+***** water mixer
+***** juice mixer
+*** Food - Eating food before/while drinking significantly slows down intoxication.
+**** Eating AFTER drinking does NOT slow down absorption of alcohol already consumed
+*** Drug use - mixing alcohol with legal or illegal drugs can speed up its effects and have an unpredictable outcome.
+** Relating behavior and intoxication factors to BAC
+*** The more behavioral cues you see, the higher the likelihood of a high BAC
+*** Intoxication factors can help enlighten BAC regardless of cues
+*** BAC
+**** Alcohol absorbed quickly when not slowed down by food or mixers
+**** Alcohol processed at a fairly steady rate, about 3/4 oz/hour of pure alcohol
+**** Only time lowers BAC.  Not coffee, cold showers, exercise, etc.
+**** 1 hour/drink is the general guideline for your body to process alcohol.
+**** BAC will be affected differently every time you drink, and is obscured by tolerance.
+* Intervention Information
+** safe-service guidelines
+*** always check id
+**** card anyone that looks under 30
+**** you are responsible, even if you think somebody else may have already carded them
+*** match your response to the behavioral cues.
+*** make as many reasonable efforts as you can.
+**** make a serious effort to ensure the safety of your guests
+*** do not back down
+**** your first priority is excellent customer service, but safety first
+**** remind yourself
+***** you have the guest's well being in mind
+***** people are depending on you to do the right thing
+***** serving alcohol to a guest that cannot legally consume it is worse than illegally serving a guest by accident
+***** others are watching, it's important to set an example of doing the right thing
+***** if you back down this time, it's harder to do it the next time.
+*** Call for assistance when necessary
+*** If in doubt, do not serve
+** Guidelines to avoid escalation
+*** communicate clearly, use simple statements and be direct, but remain polite and professional
+*** Use I statements - move the focus off the guest and onto you instead.  Shifts the conversation from negative to positive.
+**** But not "I think you've had too much...", remain direct.
+*** Do not judge or threaten guests
+*** Provide a reason for your actions
+*** Sometimes indirect is better
+**** if the guest is intimidating or violent, buy some time with an indirect strategy
+**** get the ID approved by the manager
+**** enlist the help of the guest's friend
+**** convince them to get something without alcohol
+** Intervention model
+*** assess the guest to determine if they can legally consume alcohol
+**** observe guest, noting behavioral cues and intoxication rate factors
+**** engage in conversation
+**** note how other guests respond to and interact with guest
+**** gather as much information about this guest as possible
+*** decide whether you are going to serve them (you must answer NO to all of these)
+**** do you need to check their id?
+**** are they buying alcohol for someone else who is underage?
+**** are they showing signs of intoxication?
+**** do you have any doubts about serving them alcohol?
+*** implement your decision using the safe-service and customer service guidelines
+* NY Specific Info
+** Responsible Vendor Program (RVP)
+*** a licensee who completes RVP training can present it as a mitigating factor against administrative penalties for alcohol violations by its employees
+*** eTips On Premise is an approved RVP program.
+** Affirmative Defense
+*** In the event of an underage delivery you can get protection
+**** you need to offer evidence that you checked the ID and the ID reasonably appeared to belong to the underage person
+**** NYS accepted valid IDs (Alcoholic Beverage Control Law 65-b.2(b))
+***** valid state driver's license
+***** government issued id (federal government, US territory or state, Canadian province)
+***** value US or foreign passport
+***** military ID
+**** You must thoroughly examine each ID presented.  To ensure reasonable reliance:
+***** ID must be current, with a future expiration date
+***** You must examine the ID at the time of the attempted purchase
+***** there must be no signs of tampering
+***** ID must be issued by an accepted government authority
+***** ID must appear to belong to the person presenting it
+**** Some licensees may also require a transaction scan on top of a thorough review of the ID.  Check with your employer.
+**** NYS prohibits direct delivery of alcohol to anyone under 21 years of age.
+**** If you knew or should have known the alcohol was indirectly being delivered to an underage drinker, you are liable.  You must act to stop such delivery, even if you did not serve it.
+**** When you make a multiple delivery to a single guest, you must accompany them to the area of consumption and make sure none is served to an underage consumer.
+**** Conviction is a Class A misdemeanor including a imprisonment up to 1 year, fines up to $1,000, and establishment fines up to $5,000
+**** If you deliver alcohol to an underage person, you are also liable for any damage they may cause while intoxicated.
+**** civil administrator penalties
+***** revocation, cancellation, or suspension of alcohol license
+***** civil money penalty up to $10,000
+***** bond claim up to $1,000
+***** 2-year ban against future licensure of the building containing the licensed premises.

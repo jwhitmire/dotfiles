@@ -103,3 +103,5 @@
 	stat = true
 [pull]
 	rebase = true
+[github]
+	oauth-token = a1fd3432683531ff20a598902600284722e28910

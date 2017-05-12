@@ -29,6 +29,7 @@ Public
 
 sf
 node_modules
+.node*
 
 # OSX app-specific files
 .dropbox
@@ -98,6 +99,19 @@ emacs.d.orig
 .gitkraken
 .wireshark
 .wireshark-etc
+.authinfo*
+.babel.json
+.floorc.json
+.oracle_jre_usage
+.webdrivers
+.v8flags*
+.yarnrc
+
+## mail
+.Mail
+.mu
+.offlineimaprc
+.offlineimap
 
 ################################################################################
 # ruby related files
@@ -149,7 +163,6 @@ emacs.d.orig
 .htoprc
 .zcompcache
 
-dev
 etc
 projects
 src

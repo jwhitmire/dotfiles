@@ -21,3 +21,4 @@ export EDITOR=vi
 unset VISUAL
 
 eval "$(rbenv init -)"
+export PATH="/usr/local/opt/postgresql@9.4/bin:$PATH"

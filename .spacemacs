@@ -31,11 +31,11 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
+     python
      (version-control :variables
                       version-control-diff-tool 'diff-hl
                       version-control-global-margin t)
 
-     elixir
      sql
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
@@ -47,16 +47,23 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t
                       auto-completion-enable-sort-by-usage t)
-     ;; better-defaults
+     chrome
      common-lisp
      dash
      emacs-lisp
+     erlang
+     elixir
      git
+     github
      (html :variables
-           css-indent-offset 2)
+           css-indent-offset 2
+           web-mode-markup-indent-offset 2
+           web-mode-css-indent-offset 2
+           web-mode-code-indent-offset 2)
      (javascript :variables
                  js2-basic-offset 2
-                 js-indent-level 2)
+                 js-indent-level 2
+                 javascript-indent-level 2)
      markdown
 
      (org :variables
@@ -66,12 +73,13 @@ values."
           org-projectile-file "TODO.org")
      pandoc
 
+
      osx
-     restclient
+     (restclient :variables
+                 restclient-use-org t)
      (ruby :variables
            ruby-version-manager 'rbenv
-           ruby-test-runner 'rspec
-           ruby-enable-enh-ruby-mode t)
+           ruby-test-runner 'rspec)
      ruby-on-rails
      (shell :variables
             shell-default-shell 'multi-term
@@ -82,6 +90,13 @@ values."
      shell-scripts
      syntax-checking
      yaml
+
+     (geolocation :variables
+                  geolocation-enable-location-services t
+                  geolocation-enable-weather-forecast t)
+
+     (mu4e :variables
+           mu4e-account-alist t)
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -151,7 +166,7 @@ values."
    ;; List sizes may be nil, in which case
    ;; `spacemacs-buffer-startup-lists-length' takes effect.
    dotspacemacs-startup-lists '((recents . 5)
-                                (projects . 7))
+                                (projects . 5))
    ;; True if the home buffer should respond to resize events.
    dotspacemacs-startup-buffer-responsive t
    ;; Default major mode of the scratch buffer (default `text-mode')
@@ -163,9 +178,7 @@ values."
                          spacemacs-dark
                          solarized-light
                          solarized-dark
-                         leuven
-                         monokai
-                         zenburn)
+                         misterioso)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
@@ -174,7 +187,7 @@ values."
                                :size 14
                                :weight normal
                                :width normal
-                               :powerline-scale 1.1)
+                               :powerline-scale 1.5)
    ;; The leader key
    dotspacemacs-leader-key "SPC"
    ;; The key used for Emacs commands (M-x) (after pressing on the leader key).
@@ -287,7 +300,7 @@ values."
    ;; If non nil line numbers are turned on in all `prog-mode' and `text-mode'
    ;; derivatives. If set to `relative', also turns on relative line numbers.
    ;; (default nil)
-   dotspacemacs-line-numbers 'relative
+   dotspacemacs-line-numbers 't
    ;; Code folding method. Possible values are `evil' and `origami'.
    ;; (default 'evil)
    dotspacemacs-folding-method 'evil
@@ -358,8 +371,10 @@ you should place your code here."
   (global-set-key (kbd "M-C") 'kill-region)
   (global-set-key (kbd "M-v") 'yank)
 
-  ;; set menu-bar on
+  ;; turn on GUI elements
   (menu-bar-mode t)
+  (scroll-bar-mode t)
+  (tooltip-mode t)
 
   ;; setup linenum to work well with gutter fringe
   (progn
@@ -427,6 +442,66 @@ you should place your code here."
     (push (org-projectile:todo-files) org-agenda-files)
     )
 
+  ;; geolocation configuration
+  (setq sunshine-appid "e5ffad27455174a25985049d0919e6d7"
+        sunshine-location "14580,USA"
+        sunshine-show-icons t)
+
+  ;; mu4e configuration
+  (setq mu4e-installation-path "/usr/share/emacs/site-lisp"
+        mu4e-update-interval 180
+        mu4e-maildir "~/.Mail"
+        mu4e-drafts-filder "/[Gmail].Drafts"
+        mu4e-sent-folder "/[Gmail].Sent Mail"
+        mu4e-attachment-dir "~/Downloads"
+        mu4e-sent-messages-behavior 'delete
+        mu4e-get-mail-command "offlineimap")
+
+  (setq mu4e-view-show-images t
+        mu4e-compose-signature-auto-include 't
+        message-citation-line-format "%N @ %Y-%m-%d %H:%M %Z:\n"
+        message-citation-line-function 'message-insert-formatted-citation-line
+        mu4e-view-show-addresses 't
+        mu4e-view-prefer-html t
+        mail-user-agent 'mu4e-user-agent)
+
+  (setq mu4e-headers-fields
+        '( (:date . 25)
+           (:flags . 6)
+           (:from . 22)
+           (:subject . nil)))
+
+  (when (fboundp 'imagemagick-register-types)
+    (imagemagick-register-types))
+
+  (setq message-send-mail-function 'smtpmail-send-it
+        smtpmail-stream-type 'starttls)
+
+  (setq mu4e-account-alist
+        '(("StitchFix"
+           (mu4e-sent-messages-behavior delete)
+           (user-mail-address "jeff.whitmire@stitchfix.com")
+           (user-full-name "Jeff Whitmire")
+           (mu4e-compose-signature "Principal Engineer -- Styling")
+           (smtpmail-stream-type starttls)
+           (smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil)))
+           (smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jeff.whitmire@stitchfix.com" nil)))
+           (smtpmail-default-smtp-server "smtp.gmail.com")
+           (smtpmail-smtp-server "smtp.gmail.com")
+           (smtpmail-smtp-service 587))
+          ("Personal"
+           (mu4e-sent-messages-behavior delete)
+           (user-mail-address "jeff@jwhitmire.com")
+           (user-full-name "Jeff Whitmire")
+           (mu4e-compose-signature "Jeff.")
+           (smtpmail-stream-type starttls)
+           (smtpmail-starttls-credentials '(("smtp.gmail.com" 587 nil nil)))
+           (smtpmail-auth-credentials '(("smtp.gmail.com" 587 "jeff@jwhitmire.com" nil)))
+           (smtpmail-default-smtp-server "smtp.gmail.com")
+           (smtpmail-smtp-server "smtp.gmail.com")
+           (smtpmail-smtp-service 587))))
+  (mu4e/mail-account-reset)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -439,12 +514,16 @@ you should place your code here."
  '(custom-safe-themes
    (quote
     ("fa2b58bb98b62c3b8cf3b6f02f058ef7827a8e497125de0254f56e373abee088" default)))
+ '(evil-want-Y-yank-to-eol nil)
+ '(gud-gdb-command-name "gdb --annotate=1")
+ '(large-file-warning-threshold nil)
  '(org-todo-keywords
    (quote
     ((sequence "TODO(t)" "STARTED(s)" "WAITING(w)" "DONE(d)" "CANCELED(c)"))))
  '(package-selected-packages
    (quote
-    (enh-ruby-mode pandoc-mode ox-pandoc ht ox-twbs ox-reveal ox-gfm ob-elixir flycheck-mix alchemist elixir-mode magithub sql-indent yaml-mode xterm-color web-mode web-beautify tagedit smeargle slime-company slime slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient rbenv pug-mode projectile-rails rake inflections pbcopy osx-trash osx-dictionary orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download ob-http multi-term mmm-mode minitest markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd less-css-mode launchctl json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang htmlize helm-gitignore helm-dash helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck fish-mode feature-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help emmet-mode diff-hl dash-at-point company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-quickhelp pos-tip company common-lisp-snippets coffee-mode chruby bundler inf-ruby auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+    (mu4e-maildirs-extension mu4e-alert yapfify pyvenv pytest pyenv-mode py-isort pip-requirements live-py-mode hy-mode helm-pydoc cython-mode company-anaconda anaconda-mode pythonic theme-changer sunshine rase osx-location magit-gh-pulls gmail-message-mode ham-mode html-to-markdown github-search github-clone github-browse-file gist gh marshal logito pcache flymd edit-server erlang winum restclient-helm ob-restclient fuzzy flycheck-credo company-restclient know-your-http-well enh-ruby-mode pandoc-mode ox-pandoc ht ox-twbs ox-reveal ox-gfm ob-elixir flycheck-mix alchemist elixir-mode magithub sql-indent yaml-mode xterm-color web-mode web-beautify tagedit smeargle slime-company slime slim-mode shell-pop scss-mode sass-mode rvm ruby-tools ruby-test-mode rubocop rspec-mode robe reveal-in-osx-finder restclient rbenv pug-mode projectile-rails rake inflections pbcopy osx-trash osx-dictionary orgit org-projectile org-present org org-pomodoro alert log4e gntp org-download ob-http multi-term mmm-mode minitest markdown-toc markdown-mode magit-gitflow livid-mode skewer-mode simple-httpd less-css-mode launchctl json-mode json-snatcher json-reformat js2-refactor multiple-cursors js2-mode js-doc insert-shebang htmlize helm-gitignore helm-dash helm-css-scss helm-company helm-c-yasnippet haml-mode gnuplot gitignore-mode gitconfig-mode gitattributes-mode git-timemachine git-messenger git-link git-gutter-fringe+ git-gutter-fringe fringe-helper git-gutter+ git-gutter gh-md flyspell-correct-helm flyspell-correct flycheck-pos-tip flycheck fish-mode feature-mode evil-magit magit magit-popup git-commit with-editor eshell-z eshell-prompt-extras esh-help emmet-mode diff-hl dash-at-point company-web web-completion-data company-tern dash-functional tern company-statistics company-shell company-quickhelp pos-tip company common-lisp-snippets coffee-mode chruby bundler inf-ruby auto-yasnippet yasnippet auto-dictionary ac-ispell auto-complete ws-butler window-numbering which-key volatile-highlights vi-tilde-fringe uuidgen use-package toc-org spaceline powerline restart-emacs request rainbow-delimiters popwin persp-mode pcre2el paradox spinner org-plus-contrib org-bullets open-junk-file neotree move-text macrostep lorem-ipsum linum-relative link-hint info+ indent-guide ido-vertical-mode hydra hungry-delete hl-todo highlight-parentheses highlight-numbers parent-mode highlight-indentation hide-comnt help-fns+ helm-themes helm-swoop helm-projectile helm-mode-manager helm-make projectile pkg-info epl helm-flx helm-descbinds helm-ag google-translate golden-ratio flx-ido flx fill-column-indicator fancy-battery eyebrowse expand-region exec-path-from-shell evil-visualstar evil-visual-mark-mode evil-unimpaired evil-tutor evil-surround evil-search-highlight-persist evil-numbers evil-nerd-commenter evil-mc evil-matchit evil-lisp-state smartparens evil-indent-plus evil-iedit-state iedit evil-exchange evil-escape evil-ediff evil-args evil-anzu anzu evil goto-chg undo-tree eval-sexp-fu highlight elisp-slime-nav dumb-jump f s diminish define-word column-enforce-mode clean-aindent-mode bind-map bind-key auto-highlight-symbol auto-compile packed dash aggressive-indent adaptive-wrap ace-window ace-link ace-jump-helm-line helm avy helm-core popup async quelpa package-build spacemacs-theme)))
+ '(scss-sass-command "/Users/jeffwhitmire/.rbenv/shims/sass")
  '(table-html-th-rows 1))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -452,7 +531,7 @@ you should place your code here."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(org-block ((t (:background "light blue" :foreground "#655370"))))
- '(org-block-begin-line ((t (:background "#ddd8eb" :foreground "#9380b2" :family ""))))
+ '(org-block-begin-line ((t (:background "#ddd8eb" :foreground "#9380b2"))))
  '(org-document-title ((t (:inherit bold :foreground "#6c3163" :underline nil :height 1.2))))
  '(org-drawer ((t (:foreground "Blue1"))))
  '(org-level-1 ((t (:inherit bold :foreground "#3a81c3" :height 1.1))))
